@@ -1,0 +1,16 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a230f5ce972702c43aeb00e150ab773b, type: 3}
+  m_Name: RoadFactory
+  m_EditorClassIdentifier: 
+  _roadPrefab: {fileID: 808755698605873573, guid: b9a26f77069ff704fb702abe71750051, type: 3}
+  _bossRoadPrefab: {fileID: 4165897137944527150, guid: 90925cf46832b3846ad2b2971ef4693f, type: 3}
