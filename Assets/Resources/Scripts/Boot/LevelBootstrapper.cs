@@ -12,11 +12,6 @@ public class LevelBootstrapper : MonoBehaviour
 
     [Header("Level Preferences")] 
     [SerializeField] private LevelHandler _levelHandler;
-    [SerializeField] private int _roadSegmentCount;
-
-    [Header("Enemy Preferences")] 
-    [SerializeField] private int _enemyCount;
-    private float _rangeBetweenEnemies;
 
     [Header("Input Preferences")] 
     [SerializeField] private InputBehaviour _inputBehaviour;
@@ -33,6 +28,10 @@ public class LevelBootstrapper : MonoBehaviour
     private BossBehaviour _bossInstance;
     private readonly List<EnemyBehaviour> _enemies = new();
     private readonly List<RoadBehaviour> _roads = new();
+    
+    private float _rangeBetweenEnemies;
+    private int _enemyCount;
+    private int _roadSegmentCount;
     
     private void Awake()
     {
@@ -72,6 +71,9 @@ public class LevelBootstrapper : MonoBehaviour
 
     private void InitRoad()
     {
+        _roadSegmentCount = PlayerPrefs.GetInt(SaveKeyTemplates.RoadCountKey);
+        _enemyCount = PlayerPrefs.GetInt(SaveKeyTemplates.EnemyCountKey);
+        
         _roadFactory.Init(_roadSegmentCount, _levelHandler.transform);
 
         for (int i = 0; i < _roadSegmentCount; i++)
