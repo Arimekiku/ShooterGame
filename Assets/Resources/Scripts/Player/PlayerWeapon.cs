@@ -6,10 +6,10 @@ public class PlayerWeapon : MonoBehaviour
     [SerializeField] private Transform _attackPoint;
     
     private float _attackSpeed;
-    private IBulletFactory _bulletBulletFactory;
+    private PlayerBulletFactory _bulletBulletFactory;
     private Coroutine _attackRoutine;
     
-    public void Init(IBulletFactory bulletBulletFactory)
+    public void Init(PlayerBulletFactory bulletBulletFactory)
     {
         _attackSpeed = PlayerPrefs.GetFloat(SaveKeyTemplates.AttackSpeedKey);
         _bulletBulletFactory = bulletBulletFactory;

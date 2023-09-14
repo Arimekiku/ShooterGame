@@ -2,14 +2,14 @@
 
 public class InputBehaviour : MonoBehaviour, IInputSwitcher
 {
-    private InputProvider _inputProvider;
+    private InstancesProvider<GameInput> _inputProvider;
     private GameInput _currentInput;
     private IUpdatable _updatableInput;
     private IFixedUpdatable _fixedUpdatableInput;
 
     private bool _inputDisabled;
     
-    public void Init(GameInput startInput, InputProvider inputProvider, PlayerBehaviour player)
+    public void Init(GameInput startInput, InstancesProvider<GameInput> inputProvider, PlayerBehaviour player)
     {
         _inputProvider = inputProvider;
         _currentInput = startInput;
@@ -49,7 +49,7 @@ public class InputBehaviour : MonoBehaviour, IInputSwitcher
 
     public void SwitchInput<T>() where T : GameInput
     {
-        _currentInput = _inputProvider.GetInput<T>();
+        _currentInput = _inputProvider.GetObjectOfType<T>();
         _currentInput.EnterInput();
         
         _updatableInput = _currentInput;

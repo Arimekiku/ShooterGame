@@ -10,20 +10,23 @@ public class LevelBootstrapper : MonoBehaviour
     [SerializeField] private CinemachineVirtualCamera _defaultCamera;
     private PlayerBehaviour _playerInstance;
 
+    [Header("Level Prefabs")] 
+    [SerializeField] private RoadBehaviour _defaultRoadPrefab;
+    [SerializeField] private RoadBehaviour _bossRoadPrefab;
+    [SerializeField] private PlayerBullet _bulletPrefab;
+    [SerializeField] private EnemyBehaviour _enemyPrefab;
+
     [Header("Level Preferences")] 
     [SerializeField] private LevelHandler _levelHandler;
 
     [Header("Input Preferences")] 
     [SerializeField] private InputBehaviour _inputBehaviour;
-    private InputProvider _inputProvider;
-
-    [Header("Factories")] 
-    [SerializeField] private PlayerBulletFactory _bulletFactory;
-    [SerializeField] private RoadFactory _roadFactory;
-    [SerializeField] private EnemyFactory _enemyFactory;
+    private InstancesProvider<GameInput> _inputProvider;
 
     [Header("UI")] 
     [SerializeField] private LevelUIHandler _levelUIHandler;
+
+    private InstancesProvider<GameInstanceFactory> _factoryProvider;
 
     private BossBehaviour _bossInstance;
     private readonly List<EnemyBehaviour> _enemies = new();
@@ -36,6 +39,7 @@ public class LevelBootstrapper : MonoBehaviour
     private void Awake()
     {
         InitInputProvider();
+        InitFactoryProvider();
         InitPlayer();
         InitInputBehaviour();
         InitRoad();
@@ -55,10 +59,25 @@ public class LevelBootstrapper : MonoBehaviour
         _inputProvider = new(inputs);
     }
 
+    private void InitFactoryProvider()
+    {
+        List<GameInstanceFactory> factories = new()
+        {
+            new EnemyFactory(_enemyPrefab, _rangeBetweenEnemies, _levelHandler.transform),
+            new RoadFactory(_defaultRoadPrefab, _bossRoadPrefab, _enemyCount, _levelHandler.transform),
+            new PlayerBulletFactory(_bulletPrefab)
+        };
+
+        _factoryProvider = new(factories);
+    }
+
     private void InitPlayer()
     {
+        PlayerInput playerInput = _inputProvider.GetObjectOfType<PlayerInput>();
+        PlayerBulletFactory bulletFactory = _factoryProvider.GetObjectOfType<PlayerBulletFactory>();
+        
         _playerInstance = Instantiate(_playerPrefab, _playerSpawnPosition.position, Quaternion.identity);
-        _playerInstance.Init(_bulletFactory, _inputProvider.GetInput<PlayerInput>() as PlayerInput);
+        _playerInstance.Init(bulletFactory, playerInput);
 
         _defaultCamera.Follow = _playerInstance.transform;
         _defaultCamera.LookAt = _playerInstance.transform;
@@ -66,37 +85,39 @@ public class LevelBootstrapper : MonoBehaviour
     
     private void InitInputBehaviour()
     {
-        _inputBehaviour.Init(_inputProvider.GetInput<PlayerInput>(), _inputProvider, _playerInstance);
+        PlayerInput playerInput = _inputProvider.GetObjectOfType<PlayerInput>();
+        
+        _inputBehaviour.Init(playerInput, _inputProvider, _playerInstance);
     }
 
     private void InitRoad()
     {
+        RoadFactory roadFactory = _factoryProvider.GetObjectOfType<RoadFactory>();
+        
         _roadSegmentCount = PlayerPrefs.GetInt(SaveKeyTemplates.RoadCountKey);
         _enemyCount = PlayerPrefs.GetInt(SaveKeyTemplates.EnemyCountKey);
         
-        _roadFactory.Init(_roadSegmentCount, _levelHandler.transform);
-
         for (int i = 0; i < _roadSegmentCount; i++)
         {
-            RoadBehaviour roadInstance = _roadFactory.CreateInstance();
+            RoadBehaviour roadInstance = roadFactory.CreateInstance();
             
             _roads.Add(roadInstance);
         }
         
-        _rangeBetweenEnemies = _roadFactory.TotalTrackLength / _enemyCount;
+        _rangeBetweenEnemies = roadFactory.TotalTrackLength / _enemyCount;
         
-        BossRoadBehaviour bossRoadInstance = _roadFactory.CreateInstance() as BossRoadBehaviour;
+        BossRoadBehaviour bossRoadInstance = roadFactory.CreateInstance() as BossRoadBehaviour;
         _roads.Add(bossRoadInstance);
         _bossInstance = bossRoadInstance.Boss;
     }
     
     private void InitEnemies()
     {
-        _enemyFactory.Init(_rangeBetweenEnemies, _levelHandler.transform);
+        EnemyFactory enemyFactory = _factoryProvider.GetObjectOfType<EnemyFactory>();
 
         for (int i = 0; i < _enemyCount; i++)
         {
-            EnemyBehaviour enemyInstance = _enemyFactory.CreateInstance();
+            EnemyBehaviour enemyInstance = enemyFactory.CreateInstance();
             
             _enemies.Add(enemyInstance);
         }
@@ -109,8 +130,8 @@ public class LevelBootstrapper : MonoBehaviour
     
     private void InitUIHandler()
     {
-        PlayerInput cachedPlayerInput = _inputProvider.GetInput<PlayerInput>() as PlayerInput;
-        PauseInput cachedPauseInput = _inputProvider.GetInput<PauseInput>() as PauseInput;
+        PlayerInput cachedPlayerInput = _inputProvider.GetObjectOfType<PlayerInput>();
+        PauseInput cachedPauseInput = _inputProvider.GetObjectOfType<PauseInput>();
         
         _levelUIHandler.Init(_playerInstance, _levelHandler, cachedPlayerInput, cachedPauseInput);
     }

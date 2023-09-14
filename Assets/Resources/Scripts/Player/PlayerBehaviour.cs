@@ -10,7 +10,7 @@ public class PlayerBehaviour : MonoBehaviour
 
     public event Action OnDeath;
     
-    public void Init(IBulletFactory bulletBulletFactory, PlayerInput input)
+    public void Init(PlayerBulletFactory bulletBulletFactory, PlayerInput input)
     {
         _weapon.Init(bulletBulletFactory);
 
