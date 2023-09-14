@@ -16,7 +16,7 @@ public class LevelUIHandler : MonoBehaviour
     private const int MainMenuIndex = 0;
     private const int LevelIndex = 1;
 
-    public void Init(PlayerBehaviour player, LevelHandler levelHandler, PlayerInput playerInput, PauseInput pauseInput)
+    public void Init(PlayerBehaviour player, LevelBehaviour levelBehaviour, PlayerInput playerInput, PauseInput pauseInput)
     {
         _coinsEarned.text = "0";
         DisableScreen(_restartScreen);
@@ -24,7 +24,7 @@ public class LevelUIHandler : MonoBehaviour
         DisableScreen(_pauseScreen);
 
         player.OnDeath += EnableRestartScreen;
-        levelHandler.OnLevelEnd += EnableWinScreen;
+        levelBehaviour.OnLevelEnd += EnableWinScreen;
         playerInput.OnEscapePressed += EnablePauseScreen;
         pauseInput.OnEscapePressed += DisablePauseScreen;
     }
@@ -49,7 +49,7 @@ public class LevelUIHandler : MonoBehaviour
         _pauseScreen.SetActive(true);
     }
 
-    public void DisablePauseScreen()
+    private void DisablePauseScreen()
     {
         _pauseScreen.SetActive(false);
     }

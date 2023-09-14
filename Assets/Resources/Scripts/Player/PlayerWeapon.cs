@@ -26,7 +26,8 @@ public class PlayerWeapon : MonoBehaviour
     {
         while (true)
         {
-            _bulletBulletFactory.CreateInstance(_attackPoint.position);
+            PlayerBullet newBulletInstance = _bulletBulletFactory.CreateInstance();
+            newBulletInstance.transform.position = _attackPoint.position;
 
             float timeUntilNextAttack = 1 / _attackSpeed;
             yield return new WaitForSeconds(timeUntilNextAttack);

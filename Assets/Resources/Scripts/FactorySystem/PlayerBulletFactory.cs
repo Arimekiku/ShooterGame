@@ -2,15 +2,15 @@
 
 public class PlayerBulletFactory : GameInstanceFactory
 {
-    public PlayerBulletFactory(PlayerBullet newDefaultInstancePrefab) 
-        : base(newDefaultInstancePrefab) { }
+    public PlayerBulletFactory(PlayerBullet newDefaultInstancePrefab, Transform newParent) 
+        : base(newDefaultInstancePrefab, newParent) { }
 
-    public PlayerBullet CreateInstance(Vector3 position)
+    public PlayerBullet CreateInstance()
     {
         if (_defaultInstanceBehaviour is not PlayerBullet)
             throw new("Type request mismatch");
         
-        PlayerBullet newBulletInstance = Object.Instantiate(_defaultInstanceBehaviour, position, Quaternion.identity) as PlayerBullet;
+        PlayerBullet newBulletInstance = Object.Instantiate(_defaultInstanceBehaviour, _parent) as PlayerBullet;
         newBulletInstance.Init();
 
         return newBulletInstance;

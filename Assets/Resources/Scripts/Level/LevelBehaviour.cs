@@ -1,38 +1,37 @@
 ﻿using System;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class LevelHandler : MonoBehaviour
+public class LevelBehaviour : MonoBehaviour
 {
     [SerializeField] private LevelUIHandler _levelUIHandler;
-
-    public event Action OnLevelEnd;
     
-    private InputBehaviour _inputBehaviour;
-    private PlayerBehaviour _playerInstance;
-    private RoadBehaviour _bossRoadInstance;
+    public event Action OnLevelEnd;
 
+    private LevelInfo _levelInfo;
+    
     private int _levelCoins;
     private float _initialDistance;
     private float _currentDistance;
 
-    public void Init(PlayerBehaviour newPlayer, List<RoadBehaviour> newRoads,  List<EnemyBehaviour> enemies, BossBehaviour boss)
+    public void Init(LevelInfo newInfo)
     {
-        _playerInstance = newPlayer;
-        _bossRoadInstance = newRoads[^1];
+        _levelInfo = newInfo;
+
+        foreach (EnemyBehaviour levelEnemy in _levelInfo.Enemies)
+        {
+            if (levelEnemy is BossBehaviour levelBoss)
+                levelBoss.OnDeath += UpdateTotalCoinsCount;
+            else
+                levelEnemy.OnDeath += UpdateLevelCoinsCount;
+        }
         
-        _initialDistance = _playerInstance.transform.position.z - _bossRoadInstance.transform.position.z;
+        _initialDistance = _levelInfo.Player.transform.position.z - _levelInfo.Player.transform.position.z;
         _currentDistance = _initialDistance;
-        
-        foreach (EnemyBehaviour enemy in enemies)
-            enemy.OnDeath += UpdateLevelCoinsCount;
-
-        boss.OnDeath += UpdateTotalCoinsCount;
     }
-
+    
     private void FixedUpdate()
     {
-        _currentDistance = _playerInstance.transform.position.z - _bossRoadInstance.transform.position.z;
+        _currentDistance = _levelInfo.CalculateDistanceToLevelEnd();
         
         _levelUIHandler.UpdateSlider(_currentDistance / _initialDistance);
     }
