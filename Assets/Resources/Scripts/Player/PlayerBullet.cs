@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
 
-public class PlayerBullet : MonoBehaviour
+public class PlayerBullet : BuildableObject
 {
     [SerializeField] private Vector3 _velocity;
 
@@ -11,7 +11,7 @@ public class PlayerBullet : MonoBehaviour
     private Rigidbody _body;
     private Vector3 _initialPosition;
 
-    public void Init()
+    public override void Init()
     {
         _damage = PlayerPrefs.GetInt(SaveKeyTemplates.AttackDamageKey);
 

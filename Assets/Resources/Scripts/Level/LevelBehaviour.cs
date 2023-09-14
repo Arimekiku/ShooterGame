@@ -25,7 +25,7 @@ public class LevelBehaviour : MonoBehaviour
                 levelEnemy.OnDeath += UpdateLevelCoinsCount;
         }
         
-        _initialDistance = _levelInfo.Player.transform.position.z - _levelInfo.Player.transform.position.z;
+        _initialDistance = _levelInfo.CalculateDistanceToLevelEnd();
         _currentDistance = _initialDistance;
     }
     

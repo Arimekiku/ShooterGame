@@ -8,10 +8,10 @@ public class BossBehaviour : EnemyBehaviour
 
     public override void Init()
     {
-        _currentHealth = PlayerPrefs.GetInt(SaveKeyTemplates.BossHealthKey);
-        _coinsOnDeath = PlayerPrefs.GetInt(SaveKeyTemplates.EnemyRewardKey);
+        CurrentHealth = PlayerPrefs.GetInt(SaveKeyTemplates.BossHealthKey);
+        CoinsOnDeath = PlayerPrefs.GetInt(SaveKeyTemplates.EnemyRewardKey);
 
-        _healthUI.text = _currentHealth.ToString();
+        _healthUI.text = CurrentHealth.ToString();
     }
 
     public override void TakeDamage(int damage)

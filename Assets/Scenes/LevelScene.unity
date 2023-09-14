@@ -170,13 +170,13 @@ MonoBehaviour:
   _playerPrefab: {fileID: 1983410782641833966, guid: 0f557886154fafb47aedf81a4699e0a6, type: 3}
   _playerSpawnPosition: {fileID: 1169689617}
   _defaultCamera: {fileID: 444268244}
-  _levelHandler: {fileID: 1896871829}
-  _roadSegmentCount: 3
-  _enemyCount: 5
+  _defaultRoadPrefab: {fileID: 808755698605873573, guid: b9a26f77069ff704fb702abe71750051, type: 3}
+  _bossRoadPrefab: {fileID: 4165897137944527150, guid: 90925cf46832b3846ad2b2971ef4693f, type: 3}
+  _bulletPrefab: {fileID: 7435966453007426081, guid: 8faadea82f0a45c46bd206a919250732, type: 3}
+  _enemyPrefab: {fileID: 5411214599402994177, guid: 4314e1aebe2b4564397f66b4c7e2b502, type: 3}
+  _levelBehaviour: {fileID: 1896871831}
+  _bulletContainer: {fileID: 1896871830}
   _inputBehaviour: {fileID: 2083534485}
-  _bulletFactory: {fileID: 11400000, guid: 36cebbd51fcf66945b843aa4acc0c976, type: 2}
-  _roadFactory: {fileID: 11400000, guid: 3ec7c87f4ce3e0b4292a151a88153715, type: 2}
-  _enemyFactory: {fileID: 11400000, guid: 9e09f7486da97054e967ec1c265eb411, type: 2}
   _levelUIHandler: {fileID: 1541948745}
 --- !u!1 &291128542
 GameObject:
@@ -2384,7 +2384,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1896871830}
-  - component: {fileID: 1896871829}
+  - component: {fileID: 1896871831}
   m_Layer: 0
   m_Name: Level
   m_TagString: Untagged
@@ -2392,19 +2392,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1896871829
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1896871828}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ca7c12db31655cd499ba901077f1842b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _levelUIHandler: {fileID: 1541948745}
 --- !u!4 &1896871830
 Transform:
   m_ObjectHideFlags: 0
@@ -2420,6 +2407,19 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1896871831
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1896871828}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3d427ae5a12686343beb32e226b5bcec, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _levelUIHandler: {fileID: 1541948745}
 --- !u!1 &1924562246
 GameObject:
   m_ObjectHideFlags: 0
