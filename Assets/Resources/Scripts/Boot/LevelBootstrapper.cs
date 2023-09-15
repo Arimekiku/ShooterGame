@@ -18,7 +18,6 @@ public class LevelBootstrapper : MonoBehaviour
 
     [Header("Level Preferences")] 
     [SerializeField] private LevelBehaviour _levelBehaviour;
-    [SerializeField] private Transform _bulletContainer;
 
     [Header("Input Preferences")] 
     [SerializeField] private InputBehaviour _inputBehaviour;
@@ -26,8 +25,8 @@ public class LevelBootstrapper : MonoBehaviour
     [Header("UI")] 
     [SerializeField] private LevelUIHandler _levelUIHandler;
 
-    private InstancesProvider<GameInput> _inputProvider;
-    private InstancesProvider<GameInstanceFactory> _factoryProvider;
+    private DataProvider<GameInput> _inputProvider;
+    private DataProvider<GameInstanceFactory> _factoryProvider;
     
     private void Awake()
     {
@@ -56,7 +55,7 @@ public class LevelBootstrapper : MonoBehaviour
         {
             new EnemyFactory(_levelBehaviour.transform, _enemyPrefab),
             new RoadFactory(_levelBehaviour.transform, _defaultRoadPrefab, _bossRoadPrefab),
-            new PlayerBulletFactory(_bulletContainer, _bulletPrefab)
+            new PlayerBulletFactory(_levelBehaviour.transform, _bulletPrefab)
         };
 
         _factoryProvider = new(factories);

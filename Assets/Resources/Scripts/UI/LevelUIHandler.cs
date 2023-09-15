@@ -54,12 +54,12 @@ public class LevelUIHandler : MonoBehaviour
         _pauseScreen.SetActive(false);
     }
     
-    public void UpdateSlider(float newValue)
+    public void UpdateSliderBar(float newValue)
     {
         _progressBarSlider.value = newValue;
     }
     
-    public void UpdateCoins(int count)
+    public void UpdateCoinTextLabel(int count)
     {
         _coinsEarned.text = count.ToString();
     }

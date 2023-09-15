@@ -2,14 +2,14 @@
 
 public class InputBehaviour : MonoBehaviour, IInputSwitcher
 {
-    private InstancesProvider<GameInput> _inputProvider;
+    private DataProvider<GameInput> _inputProvider;
     private GameInput _currentInput;
     private IUpdatable _updatableInput;
     private IFixedUpdatable _fixedUpdatableInput;
 
     private bool _inputDisabled;
     
-    public void Init(GameInput startInput, InstancesProvider<GameInput> inputProvider, PlayerBehaviour player)
+    public void Init(GameInput startInput, DataProvider<GameInput> inputProvider, PlayerBehaviour player)
     {
         _inputProvider = inputProvider;
         _currentInput = startInput;

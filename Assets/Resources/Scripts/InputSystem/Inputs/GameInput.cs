@@ -1,4 +1,4 @@
-﻿public abstract class GameInput : ProviderableObject, IUpdatable, IFixedUpdatable
+﻿public abstract class GameInput : IData, IUpdatable, IFixedUpdatable
 {
     protected readonly IInputSwitcher _inputSwitcher;
 

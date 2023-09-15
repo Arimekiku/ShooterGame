@@ -2,10 +2,8 @@
 
 public class RoadFactory : GameInstanceFactory
 {
-    private readonly RoadBehaviour _bossInstancePrefab;
-    
-    public RoadFactory(Transform newParent, params MonoBehaviour[] newDefaultInstancesPrefabs) 
-        : base(newParent, newDefaultInstancesPrefabs) { }
+    public RoadFactory(Transform newContainer, params MonoBehaviour[] newDefaultInstancesPrefabs) 
+        : base(newContainer, newDefaultInstancesPrefabs) { }
 
     public RoadBehaviour CreateDefaultInstance()
     {

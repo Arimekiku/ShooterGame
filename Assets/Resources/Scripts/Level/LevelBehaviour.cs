@@ -9,7 +9,6 @@ public class LevelBehaviour : MonoBehaviour
 
     private LevelInfo _levelInfo;
     
-    private int _levelCoins;
     private float _initialDistance;
     private float _currentDistance;
 
@@ -33,13 +32,14 @@ public class LevelBehaviour : MonoBehaviour
     {
         _currentDistance = _levelInfo.CalculateDistanceToLevelEnd();
         
-        _levelUIHandler.UpdateSlider(_currentDistance / _initialDistance);
+        _levelUIHandler.UpdateSliderBar(_currentDistance / _initialDistance);
     }
 
     private void UpdateLevelCoinsCount(int amount)
     {
-        _levelCoins += amount;
-        _levelUIHandler.UpdateCoins(_levelCoins);
+        _levelInfo.UpdateLevelCoins(amount);
+        
+        _levelUIHandler.UpdateCoinTextLabel(_levelInfo.EarnedCoins);
     }
 
     private void UpdateTotalCoinsCount(int amount)
@@ -48,9 +48,9 @@ public class LevelBehaviour : MonoBehaviour
         
         int cachedCoins = PlayerPrefs.GetInt(SaveKeyTemplates.CurrentCoinsKey);
         
-        PlayerPrefs.SetInt(SaveKeyTemplates.CurrentCoinsKey, cachedCoins + _levelCoins);
+        PlayerPrefs.SetInt(SaveKeyTemplates.CurrentCoinsKey, cachedCoins + _levelInfo.EarnedCoins);
         
-        TotalStatsHandler.UpdateKey(SaveKeyTemplates.TotalCoinsKey, _levelCoins);
+        TotalStatsHandler.UpdateKey(SaveKeyTemplates.TotalCoinsKey, _levelInfo.EarnedCoins);
         TotalStatsHandler.UpdateKey(SaveKeyTemplates.TotalLevelsKey, 1);
         
         OnLevelEnd.Invoke();
