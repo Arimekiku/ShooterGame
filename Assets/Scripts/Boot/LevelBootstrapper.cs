@@ -5,10 +5,10 @@ using UnityEngine;
 public class LevelBootstrapper : MonoBehaviour
 {
     [Header("Player Preferences")]
-    [SerializeField] private PlayerBehaviour _playerPrefab;
     [SerializeField] private Transform _playerSpawnPosition;
+    
+    [Header("Camera Preferences")]
     [SerializeField] private CinemachineVirtualCamera _defaultCamera;
-    private PlayerBehaviour _playerInstance;
 
     [Header("Level Preferences")] 
     [SerializeField] private LevelBehaviour _levelBehaviour;
@@ -19,8 +19,11 @@ public class LevelBootstrapper : MonoBehaviour
     [Header("UI")] 
     [SerializeField] private LevelUIHandler _levelUIHandler;
 
+    private const string PlayerPrefabPath = "Prefabs/Player/Player";
+    
     private DataProvider<GameInput> _inputProvider;
     private DataProvider<GameFactory> _factoryProvider;
+    private PlayerBehaviour _playerInstance;
     
     private void Awake()
     {
@@ -28,6 +31,7 @@ public class LevelBootstrapper : MonoBehaviour
         InitFactoryProvider();
         InitPlayer();
         InitLevel();
+        InitCameraSystem();
         InitInputBehaviour();
         InitUIHandler();
     }
@@ -57,14 +61,13 @@ public class LevelBootstrapper : MonoBehaviour
 
     private void InitPlayer()
     {
+        PlayerBehaviour playerPrefab = Resources.Load<PlayerBehaviour>(PlayerPrefabPath);
+        
         PlayerInput playerInput = _inputProvider.GetObjectOfType<PlayerInput>();
         PlayerBulletFactory bulletFactory = _factoryProvider.GetObjectOfType<PlayerBulletFactory>();
         
-        _playerInstance = Instantiate(_playerPrefab, _playerSpawnPosition.position, Quaternion.identity);
+        _playerInstance = Instantiate(playerPrefab, _playerSpawnPosition.position, Quaternion.identity);
         _playerInstance.Init(bulletFactory, playerInput);
-
-        _defaultCamera.Follow = _playerInstance.transform;
-        _defaultCamera.LookAt = _playerInstance.transform;
     }
     
     private void InitLevel()
@@ -74,6 +77,12 @@ public class LevelBootstrapper : MonoBehaviour
         LevelInfo levelInfo = levelBuilder.BuildLevelInfo();
         
         _levelBehaviour.Init(levelInfo);
+    }
+    
+    private void InitCameraSystem()
+    {
+        _defaultCamera.Follow = _playerInstance.transform;
+        _defaultCamera.LookAt = _playerInstance.transform;
     }
     
     private void InitInputBehaviour()
