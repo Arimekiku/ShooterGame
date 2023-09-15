@@ -1,9 +1,15 @@
 ﻿using UnityEngine;
 
-public class EnemyFactory : GameInstanceFactory
+public class EnemyFactory : GameFactory
 {
-    public EnemyFactory(Transform newParent, params MonoBehaviour[] newDefaultInstancesPrefabs) 
-        : base(newParent, newDefaultInstancesPrefabs) { }
+    private const string EnemyPrefabPath = "Prefabs/Enemies/DefaultEnemy";
+    
+    public EnemyFactory(Transform newParent) : base(newParent)
+    {
+        EnemyBehaviour enemyPrefab = Resources.Load<EnemyBehaviour>(EnemyPrefabPath);
+        
+        DefaultInstancesPrefabs.Add(enemyPrefab);
+    }
     
     public EnemyBehaviour CreateInstance()
     {

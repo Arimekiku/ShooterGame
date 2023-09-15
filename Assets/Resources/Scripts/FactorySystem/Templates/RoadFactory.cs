@@ -1,9 +1,18 @@
 ﻿using UnityEngine;
 
-public class RoadFactory : GameInstanceFactory
+public class RoadFactory : GameFactory
 {
-    public RoadFactory(Transform newContainer, params MonoBehaviour[] newDefaultInstancesPrefabs) 
-        : base(newContainer, newDefaultInstancesPrefabs) { }
+    private const string DefaultRoadPrefabPath = "Prefabs/Track/RoadSegment";
+    private const string BossRoadPrefabPath = "Prefabs/Track/BossRoadSegment";
+    
+    public RoadFactory(Transform newContainer) : base(newContainer)
+    {
+        RoadBehaviour defaultRoadPrefab = Resources.Load<RoadBehaviour>(DefaultRoadPrefabPath);
+        BossRoadBehaviour bossRoadPrefab = Resources.Load<BossRoadBehaviour>(BossRoadPrefabPath);
+        
+        DefaultInstancesPrefabs.Add(defaultRoadPrefab);
+        DefaultInstancesPrefabs.Add(bossRoadPrefab);
+    }
 
     public RoadBehaviour CreateDefaultInstance()
     {

@@ -1,9 +1,15 @@
 ﻿using UnityEngine;
 
-public class PlayerBulletFactory : GameInstanceFactory
+public class PlayerBulletFactory : GameFactory
 {
-    public PlayerBulletFactory(Transform newParent, params MonoBehaviour[] newDefaultInstancesPrefabs)
-        : base(newParent, newDefaultInstancesPrefabs) { }
+    private const string BulletPrefabPath = "Prefabs/Player/PlayerBullet";
+    
+    public PlayerBulletFactory(Transform newParent) : base(newParent)
+    {
+        PlayerBullet bulletPrefab = Resources.Load<PlayerBullet>(BulletPrefabPath);
+        
+        DefaultInstancesPrefabs.Add(bulletPrefab);
+    }
     
     public PlayerBullet CreateInstance()
     {

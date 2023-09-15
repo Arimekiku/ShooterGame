@@ -1,20 +1,20 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
-public class GameInstanceFactory : IData
+public class GameFactory : IData
 {
-    private readonly List<MonoBehaviour> _defaultInstancesPrefabs;
+    protected readonly List<MonoBehaviour> DefaultInstancesPrefabs;
     private readonly Transform _container;
 
-    protected GameInstanceFactory(Transform newContainer, params MonoBehaviour[] newDefaultInstancesPrefabs)
+    protected GameFactory(Transform newContainer)
     {
-        _defaultInstancesPrefabs = new(newDefaultInstancesPrefabs);
+        DefaultInstancesPrefabs = new();
         _container = newContainer;
     }
     
     protected T CreateInstance<T>() where T : BuildableObject
     {
-        if (_defaultInstancesPrefabs.Find(p => p is T) is not T typePrefab)
+        if (DefaultInstancesPrefabs.Find(p => p is T) is not T typePrefab)
             throw new("Type request not found");
 
         T newInstance = Object.Instantiate(typePrefab, _container);

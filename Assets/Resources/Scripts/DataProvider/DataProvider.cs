@@ -15,6 +15,6 @@ public class DataProvider<T> where T: IData
             if (data is TO seekingData)
                 return seekingData;
         
-        throw new($"Requested type {typeof(TO)} doesn't exist");
+        throw new($"Requested data of type {typeof(TO)} doesn't exist");
     }
 }

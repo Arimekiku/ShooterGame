@@ -10,12 +10,6 @@ public class LevelBootstrapper : MonoBehaviour
     [SerializeField] private CinemachineVirtualCamera _defaultCamera;
     private PlayerBehaviour _playerInstance;
 
-    [Header("Level Prefabs")] 
-    [SerializeField] private RoadBehaviour _defaultRoadPrefab;
-    [SerializeField] private RoadBehaviour _bossRoadPrefab;
-    [SerializeField] private PlayerBullet _bulletPrefab;
-    [SerializeField] private EnemyBehaviour _enemyPrefab;
-
     [Header("Level Preferences")] 
     [SerializeField] private LevelBehaviour _levelBehaviour;
 
@@ -26,7 +20,7 @@ public class LevelBootstrapper : MonoBehaviour
     [SerializeField] private LevelUIHandler _levelUIHandler;
 
     private DataProvider<GameInput> _inputProvider;
-    private DataProvider<GameInstanceFactory> _factoryProvider;
+    private DataProvider<GameFactory> _factoryProvider;
     
     private void Awake()
     {
@@ -51,11 +45,11 @@ public class LevelBootstrapper : MonoBehaviour
 
     private void InitFactoryProvider()
     {
-        List<GameInstanceFactory> factories = new()
+        List<GameFactory> factories = new()
         {
-            new EnemyFactory(_levelBehaviour.transform, _enemyPrefab),
-            new RoadFactory(_levelBehaviour.transform, _defaultRoadPrefab, _bossRoadPrefab),
-            new PlayerBulletFactory(_levelBehaviour.transform, _bulletPrefab)
+            new EnemyFactory(_levelBehaviour.transform),
+            new RoadFactory(_levelBehaviour.transform),
+            new PlayerBulletFactory(_levelBehaviour.transform)
         };
 
         _factoryProvider = new(factories);

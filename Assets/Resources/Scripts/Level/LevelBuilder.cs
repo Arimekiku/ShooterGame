@@ -10,7 +10,7 @@ public class LevelBuilder
     private RoadBehaviour[] _roads;
     private EnemyBehaviour[] _enemies;
 
-    public LevelBuilder(PlayerBehaviour newPlayer, DataProvider<GameInstanceFactory> newFactoryProvider)
+    public LevelBuilder(PlayerBehaviour newPlayer, DataProvider<GameFactory> newFactoryProvider)
     {
         _playerInstance = newPlayer;
         
@@ -24,7 +24,7 @@ public class LevelBuilder
         ArrangeEnemies(totalTrackLength / _enemies.Length - 1);
     }
     
-    private void BuildRoads(DataProvider<GameInstanceFactory> factoryProvider)
+    private void BuildRoads(DataProvider<GameFactory> factoryProvider)
     {
         RoadFactory roadFactory = factoryProvider.GetObjectOfType<RoadFactory>();
         
@@ -68,7 +68,7 @@ public class LevelBuilder
         return totalTrackLength;
     }
     
-    private void BuildEnemies(DataProvider<GameInstanceFactory> factoryProvider)
+    private void BuildEnemies(DataProvider<GameFactory> factoryProvider)
     {
         EnemyFactory enemyFactory = factoryProvider.GetObjectOfType<EnemyFactory>();
 
