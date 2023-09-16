@@ -18,9 +18,9 @@ public class MainMenuUIHandler : MonoBehaviour
     [SerializeField] private InputField _bossHealth;
     
     [Header("UI Panel Preferences")]
-    [SerializeField] private GameObject _shopPanel;
-    [SerializeField] private GameObject _levelBalancePanel;
-    [SerializeField] private GameObject _statsPanel;
+    [SerializeField] private DisposableUIPanel _shopPanel;
+    [SerializeField] private DisposableUIPanel _levelBalancePanel;
+    [SerializeField] private DisposableUIPanel _statsPanel;
 
     [Header("UI Shop Preferences")] 
     [SerializeField] private Text _attackDamagePrice;
@@ -33,13 +33,12 @@ public class MainMenuUIHandler : MonoBehaviour
 
     private UpgradeHandler _upgradeHandler;
     private LevelBalanceHandler _balanceHandler;
-    private const int LevelIndex = 1;
 
     public void Init(UpgradeHandler newUpgradeHandler, MoneyHandler moneyHandler, LevelBalanceHandler newBalance)
     {
-        DisableShopWindow();
-        DisableOptionsWindow();
-        DisableStatsWindow();
+        _shopPanel.Dispose();
+        _levelBalancePanel.Dispose();
+        _statsPanel.Dispose();
 
         _upgradeHandler = newUpgradeHandler;
         _balanceHandler = newBalance;
@@ -81,36 +80,6 @@ public class MainMenuUIHandler : MonoBehaviour
         _coinsCount.text = PlayerPrefs.GetInt(SaveKeyTemplates.TotalCoinsKey).ToString();
     }
 
-    public void EnableShopWindow()
-    {
-        _shopPanel.SetActive(true);
-    }
-
-    public void DisableShopWindow()
-    {
-        _shopPanel.SetActive(false);
-    }
-
-    public void EnableOptionsWindow()
-    {
-        _levelBalancePanel.SetActive(true);
-    }
-
-    public void DisableOptionsWindow()
-    {
-        _levelBalancePanel.SetActive(false);
-    }
-
-    public void EnableStatsWindow()
-    {
-        _statsPanel.SetActive(true);
-    }
-
-    public void DisableStatsWindow()
-    {
-        _statsPanel.SetActive(false);
-    }
-
     public void OnPlayButtonPressed()
     {
         _balanceHandler.ApplyNewBalanceValue((int)_totalRoadCount.value, SaveKeyTemplates.RoadCountKey);
@@ -119,7 +88,7 @@ public class MainMenuUIHandler : MonoBehaviour
         _balanceHandler.ApplyNewBalanceValue(int.Parse(_enemyHealth.text), SaveKeyTemplates.EnemyHealthKey);
         _balanceHandler.ApplyNewBalanceValue(int.Parse(_bossHealth.text), SaveKeyTemplates.BossHealthKey);
         
-        SceneManager.LoadScene(LevelIndex);
+        SceneManager.LoadScene((int)SceneIndexes.Level);
     }
 
     public void OnAttackSpeedButtonPressed()

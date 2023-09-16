@@ -11,7 +11,7 @@ public class BossBehaviour : EnemyBehaviour
         CurrentHealth = PlayerPrefs.GetInt(SaveKeyTemplates.BossHealthKey);
         CoinsOnDeath = PlayerPrefs.GetInt(SaveKeyTemplates.EnemyRewardKey);
 
-        _healthUI.text = CurrentHealth.ToString();
+        _enemyUI.UpdateHealth(CurrentHealth);
     }
 
     public override void TakeDamage(int damage)

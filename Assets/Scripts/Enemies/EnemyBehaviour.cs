@@ -4,7 +4,7 @@ using UnityEngine.UI;
 
 public class EnemyBehaviour : BuildableObject
 {
-    [SerializeField] protected Text _healthUI;
+    [SerializeField] protected EnemyUIHandler _enemyUI;
     
     public event Action<int> OnDeath;
     
@@ -15,14 +15,14 @@ public class EnemyBehaviour : BuildableObject
     {
         CurrentHealth = PlayerPrefs.GetInt(SaveKeyTemplates.EnemyHealthKey);
         CoinsOnDeath = PlayerPrefs.GetInt(SaveKeyTemplates.EnemyRewardKey);
-
-        _healthUI.text = CurrentHealth.ToString();
+        
+        _enemyUI.UpdateHealth(CurrentHealth);
     }
 
     public virtual void TakeDamage(int damage)
     {
         CurrentHealth -= damage;
-        _healthUI.text = CurrentHealth.ToString();
+        _enemyUI.UpdateHealth(CurrentHealth);
 
         if (CurrentHealth <= 0)
         {

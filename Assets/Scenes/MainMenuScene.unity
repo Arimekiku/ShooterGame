@@ -534,9 +534,9 @@ MonoBehaviour:
   _totalEnemyReward: {fileID: 1600305600}
   _enemyHealth: {fileID: 929742276}
   _bossHealth: {fileID: 574827506}
-  _shopPanel: {fileID: 454837276}
-  _levelBalancePanel: {fileID: 1674614140}
-  _statsPanel: {fileID: 657029459}
+  _shopPanel: {fileID: 454837278}
+  _levelBalancePanel: {fileID: 1674614142}
+  _statsPanel: {fileID: 657029461}
   _attackDamagePrice: {fileID: 1558879389}
   _attackSpeedPrice: {fileID: 201661455}
   _levelCount: {fileID: 1684608375}
@@ -1377,8 +1377,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 454837277}
+  - component: {fileID: 454837278}
   m_Layer: 5
-  m_Name: Shop
+  m_Name: ShopScreen
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1407,6 +1408,18 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 300, y: 300}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &454837278
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 454837276}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4c332fbea4292c1479d9162fb43567d0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &470000272
 GameObject:
   m_ObjectHideFlags: 0
@@ -1903,8 +1916,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 657029460}
+  - component: {fileID: 657029461}
   m_Layer: 5
-  m_Name: Stats
+  m_Name: StatsScreen
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1932,6 +1946,18 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 300, y: 300}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &657029461
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 657029459}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4c332fbea4292c1479d9162fb43567d0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &666912921
 GameObject:
   m_ObjectHideFlags: 0
@@ -4661,9 +4687,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 121013801}
-        m_TargetAssemblyTypeName: MainMenuUIHandler, Assembly-CSharp
-        m_MethodName: DisableStatsWindow
+      - m_Target: {fileID: 657029461}
+        m_TargetAssemblyTypeName: DisposableUIPanel, Assembly-CSharp
+        m_MethodName: Dispose
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -5040,9 +5066,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 121013801}
-        m_TargetAssemblyTypeName: MainMenuUIHandler, Assembly-CSharp
-        m_MethodName: EnableOptionsWindow
+      - m_Target: {fileID: 1674614142}
+        m_TargetAssemblyTypeName: DisposableUIPanel, Assembly-CSharp
+        m_MethodName: Init
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -5050,7 +5076,7 @@ MonoBehaviour:
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
-          m_BoolArgument: 0
+          m_BoolArgument: 1
         m_CallState: 2
 --- !u!114 &1506384977
 MonoBehaviour:
@@ -5174,9 +5200,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 121013801}
-        m_TargetAssemblyTypeName: MainMenuUIHandler, Assembly-CSharp
-        m_MethodName: DisableShopWindow
+      - m_Target: {fileID: 454837278}
+        m_TargetAssemblyTypeName: DisposableUIPanel, Assembly-CSharp
+        m_MethodName: Dispose
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -5771,8 +5797,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1674614141}
+  - component: {fileID: 1674614142}
   m_Layer: 5
-  m_Name: LevelBalance
+  m_Name: OptionsScreen
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5800,6 +5827,18 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 350, y: 300}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1674614142
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1674614140}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4c332fbea4292c1479d9162fb43567d0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1684608373
 GameObject:
   m_ObjectHideFlags: 0
@@ -6031,9 +6070,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 121013801}
-        m_TargetAssemblyTypeName: MainMenuUIHandler, Assembly-CSharp
-        m_MethodName: EnableStatsWindow
+      - m_Target: {fileID: 657029461}
+        m_TargetAssemblyTypeName: DisposableUIPanel, Assembly-CSharp
+        m_MethodName: Init
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -6041,7 +6080,7 @@ MonoBehaviour:
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
-          m_BoolArgument: 0
+          m_BoolArgument: 1
         m_CallState: 2
 --- !u!114 &1713698064
 MonoBehaviour:
@@ -6688,9 +6727,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 121013801}
-        m_TargetAssemblyTypeName: MainMenuUIHandler, Assembly-CSharp
-        m_MethodName: DisableOptionsWindow
+      - m_Target: {fileID: 1674614142}
+        m_TargetAssemblyTypeName: DisposableUIPanel, Assembly-CSharp
+        m_MethodName: Dispose
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -7164,9 +7203,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 121013801}
-        m_TargetAssemblyTypeName: MainMenuUIHandler, Assembly-CSharp
-        m_MethodName: EnableShopWindow
+      - m_Target: {fileID: 454837278}
+        m_TargetAssemblyTypeName: DisposableUIPanel, Assembly-CSharp
+        m_MethodName: Init
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -7174,7 +7213,7 @@ MonoBehaviour:
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
-          m_BoolArgument: 0
+          m_BoolArgument: 1
         m_CallState: 2
 --- !u!114 &2132804793
 MonoBehaviour:
