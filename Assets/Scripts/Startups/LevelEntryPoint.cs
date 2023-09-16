@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using Cinemachine;
 using UnityEngine;
 
-public class LevelBootstrapper : MonoBehaviour
+public class LevelEntryPoint : MonoBehaviour
 {
     [Header("Player Preferences")]
     [SerializeField] private Transform _playerSpawnPosition;
@@ -89,7 +89,7 @@ public class LevelBootstrapper : MonoBehaviour
     {
         PlayerInput playerInput = _inputProvider.GetObjectOfType<PlayerInput>();
         
-        _inputBehaviour.Init(playerInput, _inputProvider, _playerInstance);
+        _inputBehaviour.Init(playerInput, _inputProvider);
     }
     
     private void InitUIHandler()

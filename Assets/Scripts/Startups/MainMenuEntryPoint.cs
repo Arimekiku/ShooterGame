@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class MainMenuBootstrapper : MonoBehaviour
+public class MainMenuEntryPoint : MonoBehaviour
 {
     [Header("UI")]
     [SerializeField] private MainMenuUIHandler _uiHandler;
@@ -10,6 +10,7 @@ public class MainMenuBootstrapper : MonoBehaviour
         MoneyHandler moneyHandler = new();
         UpgradeHandler upgradeHandler = new(moneyHandler);
         LevelBalanceHandler balanceHandler = new();
+        
         _uiHandler.Init(upgradeHandler, moneyHandler, balanceHandler);
     }
 }

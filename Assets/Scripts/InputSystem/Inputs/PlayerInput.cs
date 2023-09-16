@@ -17,7 +17,7 @@ public class PlayerInput : GameInput
     {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            _inputSwitcher.SwitchInput<PauseInput>();
+            InputSwitcher.SwitchInput<PauseInput>();
             OnEscapePressed.Invoke();
         }
     }
