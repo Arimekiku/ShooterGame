@@ -1,18 +1,13 @@
 ﻿using UnityEngine;
+using UnityEngine.Serialization;
 
 public class BossBehaviour : EnemyBehaviour
 {
-    [SerializeField] private Vector3 _velocity;
+    [SerializeField] private Vector3 Velocity;
 
     private bool _playerIsHere;
 
-    public override void Init()
-    {
-        CurrentHealth = PlayerPrefs.GetInt(SaveKeyTemplates.BossHealthKey);
-        CoinsOnDeath = PlayerPrefs.GetInt(SaveKeyTemplates.EnemyRewardKey);
-
-        _enemyUI.UpdateHealth(CurrentHealth);
-    }
+    public override void Init() { }
 
     public override void TakeDamage(int damage)
     {
@@ -27,7 +22,7 @@ public class BossBehaviour : EnemyBehaviour
         if (!_playerIsHere)
             return;
         
-        transform.Translate(_velocity * Time.fixedDeltaTime);
+        transform.Translate(Velocity * Time.fixedDeltaTime);
     }
 
     public void EnableBoss()

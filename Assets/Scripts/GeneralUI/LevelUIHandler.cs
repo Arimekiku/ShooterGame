@@ -1,40 +1,41 @@
 ﻿using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 public class LevelUIHandler : MonoBehaviour
 {
     [Header("UI Components")]
-    [SerializeField] private Slider _progressBarSlider;
-    [SerializeField] private Text _coinsEarned;
+    [SerializeField] private Slider ProgressBarSlider;
+    [SerializeField] private Text CoinsEarned;
     
     [Header("UI Panels")]
-    [SerializeField] private DisposableUIPanel _restartScreen;
-    [SerializeField] private DisposableUIPanel _winScreen;
-    [SerializeField] private DisposableUIPanel _pauseScreen;
+    [SerializeField] private DisposableUIPanel RestartScreen;
+    [SerializeField] private DisposableUIPanel WinScreen;
+    [SerializeField] private DisposableUIPanel PauseScreen;
 
     public void Init(PlayerBehaviour player, LevelBehaviour levelBehaviour, PlayerInput playerInput, PauseInput pauseInput)
     {
-        _coinsEarned.text = "0";
+        CoinsEarned.text = "0";
         
-        _restartScreen.Dispose();
-        _winScreen.Dispose();
-        _pauseScreen.Dispose();
+        RestartScreen.Dispose();
+        WinScreen.Dispose();
+        PauseScreen.Dispose();
 
-        player.OnDeath += _restartScreen.Init;
-        levelBehaviour.OnLevelEnd += _winScreen.Init;
-        playerInput.OnEscapePressed += _pauseScreen.Init;
-        pauseInput.OnEscapePressed += _pauseScreen.Dispose;
+        player.OnDeath += RestartScreen.Init;
+        levelBehaviour.OnLevelEnd += WinScreen.Init;
+        playerInput.OnEscapePressed += PauseScreen.Init;
+        pauseInput.OnEscapePressed += PauseScreen.Dispose;
     }
     
     public void UpdateSliderBar(float newValue)
     {
-        _progressBarSlider.value = newValue;
+        ProgressBarSlider.value = newValue;
     }
     
     public void UpdateCoinTextLabel(int count)
     {
-        _coinsEarned.text = count.ToString();
+        CoinsEarned.text = count.ToString();
     }
 
     public void OnRestartPressed()

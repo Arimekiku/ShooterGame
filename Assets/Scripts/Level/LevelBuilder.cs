@@ -10,12 +10,12 @@ public class LevelBuilder
     private RoadBehaviour[] _roads;
     private EnemyBehaviour[] _enemies;
 
-    public LevelBuilder(PlayerBehaviour newPlayer, DataProvider<GameFactory> newFactoryProvider)
+    public LevelBuilder(PlayerBehaviour newPlayer, DataProvider<GameFactory> newFactoryProvider, int roadCount, int enemyCount)
     {
         _playerInstance = newPlayer;
-        
-        _roadSegmentCount = PlayerPrefs.GetInt(SaveKeyTemplates.RoadCountKey);
-        _enemyCount = PlayerPrefs.GetInt(SaveKeyTemplates.EnemyCountKey);
+
+        _roadSegmentCount = roadCount;
+        _enemyCount = enemyCount;
         
         BuildRoads(newFactoryProvider);
         float totalTrackLength = ArrangeRoadSegments();

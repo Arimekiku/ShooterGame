@@ -1,21 +1,21 @@
 using System;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class PlayerBehaviour : MonoBehaviour
 {
-    [SerializeField] private PlayerData _data;
-    [SerializeField] private PlayerWeapon _weapon;
+    [SerializeField] private PlayerInfo PlayerInfo;
+    [SerializeField] private PlayerWeapon PlayerWeapon;
 
     private Rigidbody _body;
-
-    public event Action OnDeath;
     
-    public void Init(PlayerBulletFactory bulletBulletFactory, PlayerInput input)
+    public event Action OnDeath;
+    public PlayerWeapon Weapon => PlayerWeapon;
+    
+    public void Init(PlayerInput input)
     {
-        _weapon.Init(bulletBulletFactory);
-
         _body = GetComponent<Rigidbody>();
-        _body.velocity = _data.Velocity;
+        _body.velocity = PlayerInfo.Velocity;
 
         input.OnMovePressed += MoveSideways;
     }
@@ -27,7 +27,7 @@ public class PlayerBehaviour : MonoBehaviour
     
     private void DisablePlayer()
     {
-        _weapon.StopAttack();
+        PlayerWeapon.StopAttack();
         _body.useGravity = false;
         
         DisableForwardMovement();
@@ -35,7 +35,7 @@ public class PlayerBehaviour : MonoBehaviour
     
     private void MoveSideways(float offset)
     {
-        Vector3 movementDirection = new(offset * _data.SidewaysSpeed, 0, 0);
+        Vector3 movementDirection = new(offset * PlayerInfo.SidewaysSpeed, 0, 0);
         transform.Translate(movementDirection * Time.fixedDeltaTime);
     }
 

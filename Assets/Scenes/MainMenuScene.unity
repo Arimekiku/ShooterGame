@@ -526,22 +526,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6890d05799facd649ba04f8489632ee2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _totalCoinsCount: {fileID: 66635335}
-  _totalAttackDamage: {fileID: 1413296612}
-  _totalAttackSpeed: {fileID: 1139598281}
-  _totalRoadCount: {fileID: 324597357}
-  _totalEnemyCount: {fileID: 54546500}
-  _totalEnemyReward: {fileID: 1600305600}
-  _enemyHealth: {fileID: 929742276}
-  _bossHealth: {fileID: 574827506}
-  _shopPanel: {fileID: 454837278}
-  _levelBalancePanel: {fileID: 1674614142}
-  _statsPanel: {fileID: 657029461}
-  _attackDamagePrice: {fileID: 1558879389}
-  _attackSpeedPrice: {fileID: 201661455}
-  _levelCount: {fileID: 1684608375}
-  _enemiesCount: {fileID: 344084568}
-  _coinsCount: {fileID: 1306711164}
+  TotalCoinsCount: {fileID: 66635335}
+  TotalAttackDamage: {fileID: 898767155}
+  TotalAttackSpeed: {fileID: 1240888368}
+  TotalRoadCount: {fileID: 324597357}
+  TotalEnemyCount: {fileID: 54546500}
+  TotalEnemyReward: {fileID: 1600305600}
+  EnemyHealth: {fileID: 929742276}
+  BossHealth: {fileID: 574827506}
+  ShopPanel: {fileID: 454837278}
+  LevelBalancePanel: {fileID: 1674614142}
+  StatsPanel: {fileID: 657029461}
+  AttackDamagePrice: {fileID: 1558879389}
+  AttackSpeedPrice: {fileID: 201661455}
+  LevelsPassed: {fileID: 1684608375}
+  EnemiesKilled: {fileID: 344084568}
+  CoinsEarned: {fileID: 1306711164}
 --- !u!1 &173040691
 GameObject:
   m_ObjectHideFlags: 0
@@ -1449,7 +1449,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3b6f2c2f467f78f4da4a9b75a756d192, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _uiHandler: {fileID: 121013801}
+  UIHandler: {fileID: 121013801}
 --- !u!4 &470000274
 Transform:
   m_ObjectHideFlags: 0
@@ -3900,8 +3900,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d5715226c5ca3047975bedddbe4bc5e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _textField: {fileID: 320265316}
-  _slider: {fileID: 1600305600}
+  TextField: {fileID: 320265316}
+  Slider: {fileID: 1600305600}
 --- !u!1 &1137780471
 GameObject:
   m_ObjectHideFlags: 0
@@ -6641,8 +6641,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d5715226c5ca3047975bedddbe4bc5e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _textField: {fileID: 1410835904}
-  _slider: {fileID: 324597357}
+  TextField: {fileID: 1410835904}
+  Slider: {fileID: 324597357}
 --- !u!1 &1889902587
 GameObject:
   m_ObjectHideFlags: 0
@@ -7305,8 +7305,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d5715226c5ca3047975bedddbe4bc5e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _textField: {fileID: 2144421407}
-  _slider: {fileID: 54546500}
+  TextField: {fileID: 2144421407}
+  Slider: {fileID: 54546500}
 --- !u!1 &2144421405
 GameObject:
   m_ObjectHideFlags: 0

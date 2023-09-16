@@ -30,9 +30,8 @@ Transform:
   m_Children:
   - {fileID: 5399562449220199021}
   - {fileID: 5399562449220199015}
-  - {fileID: 961930826524097436}
   m_Father: {fileID: 5399562449220199013}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &5399562449219845633
 GameObject:
@@ -246,6 +245,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 961930826524097436}
   - {fileID: 4060980624729001947}
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -312,8 +312,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 52ae8afaa4211e64cbb06be807ff3007, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _data: {fileID: 11400000, guid: 32f6c27c0f30b9f48af1c5a9cc618852, type: 2}
-  _weapon: {fileID: 1246869668756868857}
+  PlayerWeapon: {fileID: 1246869668756868857}
 --- !u!1 &5399562449219845641
 GameObject:
   m_ObjectHideFlags: 0
@@ -1236,8 +1235,8 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 4060980624729001947}
-  m_RootOrder: 2
+  m_Father: {fileID: 5399562449220199013}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1246869668756868857
 MonoBehaviour:
@@ -1251,4 +1250,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0a4f4413a6e02bf4994b52abe3333ec4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _attackPoint: {fileID: 961930826524097436}
+  AttackPoint: {fileID: 961930826524097436}

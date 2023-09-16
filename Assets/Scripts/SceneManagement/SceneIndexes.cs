@@ -1,5 +1,6 @@
 ﻿public enum SceneIndexes
 {
-    MainMenu = 0,
-    Level = 1
+    Boot = 0,
+    MainMenu = 1,
+    Level = 2
 }

@@ -144,8 +144,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 986fe6933e4e67940831364fc5233ac4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _groundTransform: {fileID: 989917257533243987}
-  _boss: {fileID: 2117963746363949125}
+  GroundTransform: {fileID: 989917257533243987}
+  BossBehaviour: {fileID: 2117963746363949125}
 --- !u!65 &8087374341149249157
 BoxCollider:
   m_ObjectHideFlags: 0

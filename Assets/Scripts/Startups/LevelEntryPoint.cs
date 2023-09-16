@@ -5,28 +5,31 @@ using UnityEngine;
 public class LevelEntryPoint : MonoBehaviour
 {
     [Header("Player Preferences")]
-    [SerializeField] private Transform _playerSpawnPosition;
+    [SerializeField] private Transform PlayerSpawnPosition;
     
     [Header("Camera Preferences")]
-    [SerializeField] private CinemachineVirtualCamera _defaultCamera;
+    [SerializeField] private CinemachineVirtualCamera DefaultCamera;
 
     [Header("Level Preferences")] 
-    [SerializeField] private LevelBehaviour _levelBehaviour;
+    [SerializeField] private LevelBehaviour LevelBehaviour;
 
     [Header("Input Preferences")] 
-    [SerializeField] private InputBehaviour _inputBehaviour;
+    [SerializeField] private InputBehaviour InputBehaviour;
 
     [Header("UI")] 
-    [SerializeField] private LevelUIHandler _levelUIHandler;
+    [SerializeField] private LevelUIHandler LevelUIHandler;
 
     private const string PlayerPrefabPath = "Prefabs/Player/Player";
     
     private DataProvider<GameInput> _inputProvider;
     private DataProvider<GameFactory> _factoryProvider;
     private PlayerBehaviour _playerInstance;
+    private SaveDataHandler _dataHandler;
     
     private void Awake()
     {
+        _dataHandler = FindObjectOfType<SaveDataHandler>();
+        
         InitInputProvider();
         InitFactoryProvider();
         InitPlayer();
@@ -40,8 +43,8 @@ public class LevelEntryPoint : MonoBehaviour
     {
         List<GameInput> inputs = new()
         {
-            new PlayerInput(_inputBehaviour),
-            new PauseInput(_inputBehaviour),
+            new PlayerInput(InputBehaviour),
+            new PauseInput(InputBehaviour),
         };
 
         _inputProvider = new(inputs);
@@ -51,9 +54,9 @@ public class LevelEntryPoint : MonoBehaviour
     {
         List<GameFactory> factories = new()
         {
-            new EnemyFactory(_levelBehaviour.transform),
-            new RoadFactory(_levelBehaviour.transform),
-            new PlayerBulletFactory(_levelBehaviour.transform)
+            new EnemyFactory(LevelBehaviour.transform),
+            new RoadFactory(LevelBehaviour.transform),
+            new PlayerBulletFactory(LevelBehaviour.transform)
         };
 
         _factoryProvider = new(factories);
@@ -64,32 +67,34 @@ public class LevelEntryPoint : MonoBehaviour
         PlayerBehaviour playerPrefab = Resources.Load<PlayerBehaviour>(PlayerPrefabPath);
         
         PlayerInput playerInput = _inputProvider.GetObjectOfType<PlayerInput>();
-        PlayerBulletFactory bulletFactory = _factoryProvider.GetObjectOfType<PlayerBulletFactory>();
+        _playerInstance = Instantiate(playerPrefab, PlayerSpawnPosition.position, Quaternion.identity);
+        _playerInstance.Init(playerInput);
         
-        _playerInstance = Instantiate(playerPrefab, _playerSpawnPosition.position, Quaternion.identity);
-        _playerInstance.Init(bulletFactory, playerInput);
+        PlayerBulletFactory bulletFactory = _factoryProvider.GetObjectOfType<PlayerBulletFactory>();
+        PlayerWeaponInfo weaponInfo = new(_dataHandler.DataInfo.AttackSpeed, _dataHandler.DataInfo.AttackDamage);
+        _playerInstance.Weapon.Init(bulletFactory, weaponInfo);
     }
     
     private void InitLevel()
     {
-        LevelBuilder levelBuilder = new(_playerInstance, _factoryProvider);
+        LevelBuilder levelBuilder = new(_playerInstance, _factoryProvider, _dataHandler.DataInfo.RoadCount, _dataHandler.DataInfo.EnemyCount);
 
         LevelInfo levelInfo = levelBuilder.BuildLevelInfo();
         
-        _levelBehaviour.Init(levelInfo);
+        LevelBehaviour.Init(levelInfo, _dataHandler);
     }
     
     private void InitCameraSystem()
     {
-        _defaultCamera.Follow = _playerInstance.transform;
-        _defaultCamera.LookAt = _playerInstance.transform;
+        DefaultCamera.Follow = _playerInstance.transform;
+        DefaultCamera.LookAt = _playerInstance.transform;
     }
     
     private void InitInputBehaviour()
     {
         PlayerInput playerInput = _inputProvider.GetObjectOfType<PlayerInput>();
         
-        _inputBehaviour.Init(playerInput, _inputProvider);
+        InputBehaviour.Init(playerInput, _inputProvider);
     }
     
     private void InitUIHandler()
@@ -97,6 +102,6 @@ public class LevelEntryPoint : MonoBehaviour
         PlayerInput cachedPlayerInput = _inputProvider.GetObjectOfType<PlayerInput>();
         PauseInput cachedPauseInput = _inputProvider.GetObjectOfType<PauseInput>();
         
-        _levelUIHandler.Init(_playerInstance, _levelBehaviour, cachedPlayerInput, cachedPauseInput);
+        LevelUIHandler.Init(_playerInstance, LevelBehaviour, cachedPlayerInput, cachedPauseInput);
     }
 }

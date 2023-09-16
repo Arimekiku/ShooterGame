@@ -6,45 +6,45 @@ using UnityEngine.UI;
 public class MainMenuUIHandler : MonoBehaviour
 {
     [Header("UI Player Stats")]
-    [SerializeField] private Text _totalCoinsCount;
-    [SerializeField] private Text _totalAttackDamage;
-    [SerializeField] private Text _totalAttackSpeed;
+    [SerializeField] private Text TotalCoinsCount;
+    [SerializeField] private Text TotalAttackDamage;
+    [SerializeField] private Text TotalAttackSpeed;
 
     [Header("UI Level Stats")] 
-    [SerializeField] private Slider _totalRoadCount;
-    [SerializeField] private Slider _totalEnemyCount;
-    [SerializeField] private Slider _totalEnemyReward;
-    [SerializeField] private InputField _enemyHealth;
-    [SerializeField] private InputField _bossHealth;
+    [SerializeField] private Slider TotalRoadCount;
+    [SerializeField] private Slider TotalEnemyCount;
+    [SerializeField] private Slider TotalEnemyReward;
+    [SerializeField] private InputField EnemyHealth;
+    [SerializeField] private InputField BossHealth;
     
     [Header("UI Panel Preferences")]
-    [SerializeField] private DisposableUIPanel _shopPanel;
-    [SerializeField] private DisposableUIPanel _levelBalancePanel;
-    [SerializeField] private DisposableUIPanel _statsPanel;
+    [SerializeField] private DisposableUIPanel ShopPanel;
+    [SerializeField] private DisposableUIPanel LevelBalancePanel;
+    [SerializeField] private DisposableUIPanel StatsPanel;
 
     [Header("UI Shop Preferences")] 
-    [SerializeField] private Text _attackDamagePrice;
-    [SerializeField] private Text _attackSpeedPrice;
+    [SerializeField] private Text AttackDamagePrice;
+    [SerializeField] private Text AttackSpeedPrice;
 
     [Header("UI Stats Preferences")] 
-    [SerializeField] private Text _levelCount;
-    [SerializeField] private Text _enemiesCount;
-    [SerializeField] private Text _coinsCount;
+    [SerializeField] private Text LevelsPassed;
+    [SerializeField] private Text EnemiesKilled;
+    [SerializeField] private Text CoinsEarned;
 
     private UpgradeHandler _upgradeHandler;
-    private LevelBalanceHandler _balanceHandler;
+    private SaveDataInfo _saveData;
 
-    public void Init(UpgradeHandler newUpgradeHandler, MoneyHandler moneyHandler, LevelBalanceHandler newBalance)
+    public void Init(UpgradeHandler newUpgradeHandler, MoneyHandler moneyHandler, SaveDataInfo newDataInfo)
     {
-        _shopPanel.Dispose();
-        _levelBalancePanel.Dispose();
-        _statsPanel.Dispose();
+        ShopPanel.Dispose();
+        LevelBalancePanel.Dispose();
+        StatsPanel.Dispose();
 
         _upgradeHandler = newUpgradeHandler;
-        _balanceHandler = newBalance;
+        _saveData = newDataInfo;
         
         moneyHandler.OnCoinsUpdate += UpdateCoinsCount;
-        moneyHandler.UpdateCoins();
+        moneyHandler.UpdateCoins(_saveData.CurrentCoinsInGame);
         UpdateLevelInfo();
         UpdateShopInfo();
         UpdateStatsInfo();
@@ -52,56 +52,56 @@ public class MainMenuUIHandler : MonoBehaviour
     
     private void UpdateCoinsCount(int count)
     {
-        _totalCoinsCount.text = count.ToString();
+        TotalCoinsCount.text = count.ToString();
     }
 
     private void UpdateLevelInfo()
     {
-        _totalRoadCount.value = PlayerPrefs.GetInt(SaveKeyTemplates.RoadCountKey);
-        _totalEnemyReward.value = PlayerPrefs.GetInt(SaveKeyTemplates.EnemyRewardKey);
-        _totalEnemyCount.value = PlayerPrefs.GetInt(SaveKeyTemplates.EnemyCountKey);
-        _enemyHealth.text = PlayerPrefs.GetInt(SaveKeyTemplates.EnemyHealthKey).ToString();
-        _bossHealth.text = PlayerPrefs.GetInt(SaveKeyTemplates.BossHealthKey).ToString();
+        TotalRoadCount.value = _saveData.RoadCount;
+        TotalEnemyReward.value = _saveData.EnemyReward;
+        TotalEnemyCount.value = _saveData.EnemyCount;
+        EnemyHealth.text = _saveData.EnemyHealth.ToString();
+        BossHealth.text = _saveData.BossHealth.ToString();
     }
 
     private void UpdateShopInfo()
     {
-        _attackDamagePrice.text = UpgradeHandler.AttackDamageUpgradePrice.ToString();
-        _attackSpeedPrice.text = UpgradeHandler.AttackSpeedUpgradePrice.ToString();
+        AttackDamagePrice.text = UpgradeHandler.AttackDamageUpgradePrice.ToString();
+        AttackSpeedPrice.text = UpgradeHandler.AttackSpeedUpgradePrice.ToString();
         
-        _totalAttackSpeed.text = PlayerPrefs.GetFloat(SaveKeyTemplates.AttackSpeedKey).ToString(CultureInfo.InvariantCulture);
-        _totalAttackDamage.text = PlayerPrefs.GetInt(SaveKeyTemplates.AttackDamageKey).ToString();
+        TotalAttackSpeed.text = _saveData.AttackSpeed.ToString(CultureInfo.InvariantCulture);
+        TotalAttackDamage.text = _saveData.AttackDamage.ToString();
     }
 
     private void UpdateStatsInfo()
     {
-        _levelCount.text = PlayerPrefs.GetInt(SaveKeyTemplates.TotalLevelsKey).ToString();
-        _enemiesCount.text = PlayerPrefs.GetInt(SaveKeyTemplates.TotalEnemiesKey).ToString();
-        _coinsCount.text = PlayerPrefs.GetInt(SaveKeyTemplates.TotalCoinsKey).ToString();
+        LevelsPassed.text = _saveData.TotalLevelPassed.ToString();
+        EnemiesKilled.text = _saveData.TotalEnemyKilled.ToString();
+        CoinsEarned.text = _saveData.TotalCoinsEarned.ToString();
     }
 
     public void OnPlayButtonPressed()
     {
-        _balanceHandler.ApplyNewBalanceValue((int)_totalRoadCount.value, SaveKeyTemplates.RoadCountKey);
-        _balanceHandler.ApplyNewBalanceValue((int)_totalEnemyCount.value, SaveKeyTemplates.EnemyCountKey);
-        _balanceHandler.ApplyNewBalanceValue((int)_totalEnemyReward.value, SaveKeyTemplates.EnemyRewardKey);
-        _balanceHandler.ApplyNewBalanceValue(int.Parse(_enemyHealth.text), SaveKeyTemplates.EnemyHealthKey);
-        _balanceHandler.ApplyNewBalanceValue(int.Parse(_bossHealth.text), SaveKeyTemplates.BossHealthKey);
+        _saveData.RoadCount = (int)TotalRoadCount.value;
+        _saveData.EnemyCount = (int)TotalEnemyCount.value;
+        _saveData.EnemyReward = (int)TotalEnemyReward.value;
+        _saveData.EnemyHealth = int.Parse(EnemyHealth.text);
+        _saveData.BossHealth = int.Parse(BossHealth.text);
         
         SceneManager.LoadScene((int)SceneIndexes.Level);
     }
 
     public void OnAttackSpeedButtonPressed()
     {
-        _upgradeHandler.MakeUpgrade(SaveKeyTemplates.AttackSpeedKey);
+        _upgradeHandler.MakeAttackSpeedUpgrade(ref _saveData.AttackSpeed, ref _saveData.CurrentCoinsInGame);
 
-        _totalAttackSpeed.text = PlayerPrefs.GetFloat(SaveKeyTemplates.AttackSpeedKey).ToString(CultureInfo.InvariantCulture);
+        TotalAttackSpeed.text = _saveData.AttackSpeed.ToString(CultureInfo.InvariantCulture);
     }
 
     public void OnAttackDamageButtonPressed()
     {
-        _upgradeHandler.MakeUpgrade(SaveKeyTemplates.AttackDamageKey);
+        _upgradeHandler.MakeAttackDamageUpgrade(ref _saveData.AttackDamage, ref _saveData.CurrentCoinsInGame);
 
-        _totalAttackDamage.text = PlayerPrefs.GetInt(SaveKeyTemplates.AttackDamageKey).ToString();
+        TotalAttackDamage.text = _saveData.AttackDamage.ToString();
     }
 }

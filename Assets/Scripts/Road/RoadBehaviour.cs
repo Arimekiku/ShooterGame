@@ -1,13 +1,14 @@
 ﻿using UnityEngine;
+using UnityEngine.Serialization;
 
 public class RoadBehaviour : BuildableObject
 {
-    [SerializeField] private Transform _groundTransform;
+    [FormerlySerializedAs("_groundTransform")] [SerializeField] private Transform GroundTransform;
      
     public float RoadLength { get; private set; }
     
     public override void Init()
     {
-        RoadLength = _groundTransform.localScale.z;
+        RoadLength = GroundTransform.localScale.z;
     }
 }

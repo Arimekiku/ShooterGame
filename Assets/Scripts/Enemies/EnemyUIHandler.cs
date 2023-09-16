@@ -1,12 +1,13 @@
 ﻿using UnityEngine;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 public class EnemyUIHandler : MonoBehaviour
 {
-    [SerializeField] protected Text _healthUI;
+    [FormerlySerializedAs("_healthUI")] [SerializeField] protected Text HealthUI;
 
     public void UpdateHealth(int health)
     {
-        _healthUI.text = health.ToString();
+        HealthUI.text = health.ToString();
     }
 }

@@ -1,17 +1,18 @@
 ﻿using System.Collections;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class PlayerWeapon : MonoBehaviour
 {
-    [SerializeField] private Transform _attackPoint;
+    [SerializeField] private Transform AttackPoint;
     
-    private float _attackSpeed;
     private PlayerBulletFactory _bulletBulletFactory;
+    private PlayerWeaponInfo _weaponInfo;
     private Coroutine _attackRoutine;
     
-    public void Init(PlayerBulletFactory bulletBulletFactory)
+    public void Init(PlayerBulletFactory bulletBulletFactory, PlayerWeaponInfo weaponInfo)
     {
-        _attackSpeed = PlayerPrefs.GetFloat(SaveKeyTemplates.AttackSpeedKey);
+        _weaponInfo = weaponInfo;
         _bulletBulletFactory = bulletBulletFactory;
         
         _attackRoutine = StartCoroutine(Attack());
@@ -27,9 +28,10 @@ public class PlayerWeapon : MonoBehaviour
         while (true)
         {
             PlayerBullet newBulletInstance = _bulletBulletFactory.CreateInstance();
-            newBulletInstance.transform.position = _attackPoint.position;
+            newBulletInstance.SetInitialPosition(AttackPoint.position);
+            newBulletInstance.SetDamage(_weaponInfo.AttackDamage);
 
-            float timeUntilNextAttack = 1 / _attackSpeed;
+            float timeUntilNextAttack = 1 / _weaponInfo.AttackSpeed;
             yield return new WaitForSeconds(timeUntilNextAttack);
         }
     }

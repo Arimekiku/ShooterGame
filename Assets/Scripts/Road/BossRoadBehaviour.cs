@@ -1,21 +1,22 @@
 ﻿using UnityEngine;
+using UnityEngine.Serialization;
 
 public class BossRoadBehaviour : RoadBehaviour
 {
-    [SerializeField] private BossBehaviour _boss;
+    [SerializeField] private BossBehaviour BossBehaviour;
 
-    public BossBehaviour Boss => _boss;
+    public BossBehaviour Boss => BossBehaviour;
 
     public override void Init()
     {
         base.Init();
         
-        _boss.Init();
+        BossBehaviour.Init();
     }
 
     private void OnTriggerEnter(Collider other)
     {
         if (other.TryGetComponent(out PlayerBehaviour _))
-            _boss.EnableBoss();
+            BossBehaviour.EnableBoss();
     }
 }

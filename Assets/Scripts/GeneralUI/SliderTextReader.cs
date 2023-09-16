@@ -1,21 +1,22 @@
 ﻿using System.Globalization;
 using UnityEngine;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 public class SliderTextReader : MonoBehaviour
 {
-    [SerializeField] private Text _textField;
-    [SerializeField] private Slider _slider;
+    [FormerlySerializedAs("_textField")] [SerializeField] private Text TextField;
+    [FormerlySerializedAs("_slider")] [SerializeField] private Slider Slider;
 
     private void Awake()
     {
-        _slider.onValueChanged.AddListener(UpdateText);
+        Slider.onValueChanged.AddListener(UpdateText);
         
-        UpdateText(_slider.value);
+        UpdateText(Slider.value);
     }
 
     private void UpdateText(float value)
     {
-        _textField.text = _slider.value.ToString(CultureInfo.InvariantCulture);
+        TextField.text = Slider.value.ToString(CultureInfo.InvariantCulture);
     }
 }

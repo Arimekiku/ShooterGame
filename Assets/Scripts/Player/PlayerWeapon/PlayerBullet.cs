@@ -1,9 +1,10 @@
 ﻿using System;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class PlayerBullet : BuildableObject
 {
-    [SerializeField] private Vector3 _velocity;
+    [SerializeField] private Vector3 Velocity;
 
     private const float MaximumRange = 15f;
     
@@ -13,16 +14,26 @@ public class PlayerBullet : BuildableObject
 
     public override void Init()
     {
-        _damage = PlayerPrefs.GetInt(SaveKeyTemplates.AttackDamageKey);
-
         _body = GetComponent<Rigidbody>();
-        _body.velocity = _velocity;
-        
-        _initialPosition = transform.position;
+        _body.velocity = Velocity;
+    }
+
+    public void SetInitialPosition(Vector3 newPosition)
+    {
+        transform.position = newPosition;
+        _initialPosition = newPosition;
+    }
+
+    public void SetDamage(int amount)
+    {
+        _damage = amount;
     }
 
     private void FixedUpdate()
     {
+        if (_initialPosition == Vector3.zero)
+            return;
+        
         if (Math.Abs(_initialPosition.z - transform.position.z) > MaximumRange)
             Destroy(gameObject);
     }

@@ -1,33 +1,32 @@
 using System;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class EnemyBehaviour : BuildableObject
 {
-    [SerializeField] protected EnemyUIHandler _enemyUI;
+    [FormerlySerializedAs("_enemyUI")] [SerializeField] protected EnemyUIHandler EnemyUI;
     
     public event Action<int> OnDeath;
     
     protected int CurrentHealth;
     protected int CoinsOnDeath;
     
-    public override void Init()
+    public override void Init() { }
+
+    public void SetHealthAndReward(int health, int reward)
     {
-        CurrentHealth = PlayerPrefs.GetInt(SaveKeyTemplates.EnemyHealthKey);
-        CoinsOnDeath = PlayerPrefs.GetInt(SaveKeyTemplates.EnemyRewardKey);
-        
-        _enemyUI.UpdateHealth(CurrentHealth);
+        CurrentHealth = health;
+        CoinsOnDeath = reward;
     }
 
     public virtual void TakeDamage(int damage)
     {
         CurrentHealth -= damage;
-        _enemyUI.UpdateHealth(CurrentHealth);
+        EnemyUI.UpdateHealth(CurrentHealth);
 
         if (CurrentHealth <= 0)
         {
             gameObject.SetActive(false);
-            
-            TotalStatsHandler.UpdateKey(SaveKeyTemplates.TotalEnemiesKey, 1);
             
             OnDeath.Invoke(CoinsOnDeath);
         }

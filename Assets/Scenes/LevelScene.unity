@@ -153,7 +153,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &62693081
 MonoBehaviour:
@@ -167,11 +167,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ad6e527b8db59ac42ad2dce0e3b9344a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _playerSpawnPosition: {fileID: 1169689617}
-  _defaultCamera: {fileID: 444268244}
-  _levelBehaviour: {fileID: 1896871831}
-  _inputBehaviour: {fileID: 2083534485}
-  _levelUIHandler: {fileID: 1541948745}
+  PlayerSpawnPosition: {fileID: 1169689617}
+  DefaultCamera: {fileID: 444268244}
+  LevelBehaviour: {fileID: 1896871831}
+  InputBehaviour: {fileID: 2083534485}
+  LevelUIHandler: {fileID: 1541948745}
 --- !u!1 &291128542
 GameObject:
   m_ObjectHideFlags: 0
@@ -563,7 +563,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
 --- !u!1 &742142808
 GameObject:
@@ -1264,7 +1264,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1170325933
 GameObject:
@@ -2175,7 +2175,7 @@ RectTransform:
   - {fileID: 2020368699}
   - {fileID: 897185275}
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -2194,11 +2194,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 25ebe80194ef6104c9cc91a0b0cfb901, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _progressBarSlider: {fileID: 781130065}
-  _coinsEarned: {fileID: 1340236750}
-  _restartScreen: {fileID: 1641434043}
-  _winScreen: {fileID: 2020368700}
-  _pauseScreen: {fileID: 897185276}
+  ProgressBarSlider: {fileID: 781130065}
+  CoinsEarned: {fileID: 1340236750}
+  RestartScreen: {fileID: 1641434043}
+  WinScreen: {fileID: 2020368700}
+  PauseScreen: {fileID: 897185276}
 --- !u!1 &1641434041
 GameObject:
   m_ObjectHideFlags: 0
@@ -2425,7 +2425,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1896871831
 MonoBehaviour:
@@ -2439,7 +2439,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3d427ae5a12686343beb32e226b5bcec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _levelUIHandler: {fileID: 1541948745}
+  LevelUIHandler: {fileID: 1541948745}
 --- !u!1 &1924562246
 GameObject:
   m_ObjectHideFlags: 0
@@ -2471,7 +2471,7 @@ Transform:
   - {fileID: 963194228}
   - {fileID: 444268243}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1985978226
 GameObject:
@@ -2659,7 +2659,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2020368698
 GameObject:
@@ -2755,5 +2755,5 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
