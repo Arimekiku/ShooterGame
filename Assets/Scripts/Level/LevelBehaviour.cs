@@ -32,15 +32,14 @@ public class LevelBehaviour : MonoBehaviour
             }
         }
         
-        _initialDistance = _levelInfo.CalculateDistanceToLevelEnd();
-        _currentDistance = _initialDistance;
+        _initialDistance = _levelInfo.DistanceToLevelEnd;
     }
     
     private void FixedUpdate()
     {
         if (_levelInfo is not null)
         {
-            _currentDistance = _levelInfo.CalculateDistanceToLevelEnd();
+            _currentDistance = _levelInfo.DistanceToLevelEnd;
             
             LevelUIHandler.UpdateSliderBar(_currentDistance / _initialDistance);
         }

@@ -94,7 +94,7 @@ public class MainMenuUIHandler : MonoBehaviour
     public void OnAttackSpeedButtonPressed()
     {
         _upgradeHandler.MakeAttackSpeedUpgrade(ref _saveData.AttackSpeed, ref _saveData.CurrentCoinsInGame);
-
+        
         TotalAttackSpeed.text = _saveData.AttackSpeed.ToString(CultureInfo.InvariantCulture);
     }
 

@@ -20,6 +20,4 @@ public class PauseInput : GameInput
             OnEscapePressed.Invoke();
         }
     }
-
-    public override void FixedUpdate() { }
 }

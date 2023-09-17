@@ -1,6 +1,5 @@
 using System;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 public class PlayerBehaviour : MonoBehaviour
 {
@@ -42,13 +41,6 @@ public class PlayerBehaviour : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         if (other.TryGetComponent(out EnemyBehaviour _))
-        {
-            DisablePlayer();
-            OnDeath.Invoke();
-            return;
-        }
-
-        if (other.TryGetComponent(out BossBehaviour _))
         {
             DisablePlayer();
             OnDeath.Invoke();

@@ -143,7 +143,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3faa43e4d0f08384ba42b22a658e5638, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _groundTransform: {fileID: 989917257533243987}
+  GroundTransform: {fileID: 989917257533243987}
 --- !u!65 &6596783353945626136
 BoxCollider:
   m_ObjectHideFlags: 0

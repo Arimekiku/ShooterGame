@@ -4,6 +4,7 @@
     public readonly EnemyBehaviour[] Enemies;
     
     public int EarnedCoins { get; private set; }
+    public float DistanceToLevelEnd => _player.transform.position.z - _bossRoadInstance.transform.position.z;
     
     private readonly PlayerBehaviour _player;
     private readonly RoadBehaviour _bossRoadInstance;
@@ -15,11 +16,6 @@
 
         _player = newPlayer;
         _bossRoadInstance = newLevelRoads[^1];
-    }
-
-    public float CalculateDistanceToLevelEnd()
-    {
-        return _player.transform.position.z - _bossRoadInstance.transform.position.z;
     }
 
     public void UpdateLevelCoins(int amount)

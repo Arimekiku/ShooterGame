@@ -24,6 +24,11 @@ public class LevelBuilder
         ArrangeEnemies(totalTrackLength / _enemies.Length - 1);
     }
     
+    public LevelInfo BuildLevelInfo()
+    {
+        return new(_roads, _enemies, _playerInstance);
+    }
+    
     private void BuildRoads(DataProvider<GameFactory> factoryProvider)
     {
         RoadFactory roadFactory = factoryProvider.GetObjectOfType<RoadFactory>();
@@ -31,20 +36,15 @@ public class LevelBuilder
         _roads = new RoadBehaviour[_roadSegmentCount];
         _enemies = new EnemyBehaviour[_enemyCount];
         
-        for (int i = 0; i < _roadSegmentCount; i++)
+        for (int i = 0; i < _roadSegmentCount - 1; i++)
         {
-            if (i == _roadSegmentCount - 1)
-            {
-                BossRoadBehaviour bossRoadInstance = roadFactory.CreateBossInstance();
-                _roads[i] = bossRoadInstance;
-                _enemies[^1] = bossRoadInstance.Boss;
-            }
-            else
-            {
-                RoadBehaviour roadInstance = roadFactory.CreateDefaultInstance();
-                _roads[i] = roadInstance;
-            }
+            RoadBehaviour roadInstance = roadFactory.CreateDefaultInstance();
+            _roads[i] = roadInstance;
         }
+        
+        BossRoadBehaviour bossRoadInstance = roadFactory.CreateBossInstance();
+        _roads[_roadSegmentCount - 1] = bossRoadInstance;
+        _enemies[^1] = bossRoadInstance.Boss;
     }
     
     private float ArrangeRoadSegments()
@@ -90,10 +90,5 @@ public class LevelBuilder
             enemySpawnPosition = new Vector3(0, 0, enemySpawnPosition.z) + offset;
             enemySpawnPosition.x = Random.Range(-2f, 2f);
         }
-    }
-
-    public LevelInfo BuildLevelInfo()
-    {
-        return new(_roads, _enemies, _playerInstance);
     }
 }

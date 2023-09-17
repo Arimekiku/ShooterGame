@@ -8,8 +8,8 @@
     }
 
     public abstract void EnterInput();
-    
+
     public abstract void Update();
 
-    public abstract void FixedUpdate();
+    public virtual void FixedUpdate() { }
 }

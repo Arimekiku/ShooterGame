@@ -3,8 +3,8 @@
 public class SaveDataHandler : MonoBehaviour
 {
     [SerializeField] private string SaveDataFilename;
-    
-    public SaveDataInfo DataInfo { get; private set; }
+
+    public SaveDataInfo DataInfo;
     
     private FileSaver _fileSaver;
 

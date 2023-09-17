@@ -28,8 +28,8 @@ public class LevelEntryPoint : MonoBehaviour
     
     private void Awake()
     {
-        _dataHandler = FindObjectOfType<SaveDataHandler>();
-        
+        SaveLoadedData();
+
         InitInputProvider();
         InitFactoryProvider();
         InitPlayer();
@@ -37,6 +37,12 @@ public class LevelEntryPoint : MonoBehaviour
         InitCameraSystem();
         InitInputBehaviour();
         InitUIHandler();
+    }
+
+    private void SaveLoadedData()
+    {
+        _dataHandler = FindObjectOfType<SaveDataHandler>();
+        _dataHandler.SaveGame();
     }
 
     private void InitInputProvider()
@@ -99,9 +105,9 @@ public class LevelEntryPoint : MonoBehaviour
     
     private void InitUIHandler()
     {
-        PlayerInput cachedPlayerInput = _inputProvider.GetObjectOfType<PlayerInput>();
-        PauseInput cachedPauseInput = _inputProvider.GetObjectOfType<PauseInput>();
+        PlayerInput playerInput = _inputProvider.GetObjectOfType<PlayerInput>();
+        PauseInput pauseInput = _inputProvider.GetObjectOfType<PauseInput>();
         
-        LevelUIHandler.Init(_playerInstance, LevelBehaviour, cachedPlayerInput, cachedPauseInput);
+        LevelUIHandler.Init(_playerInstance, LevelBehaviour, playerInput, pauseInput);
     }
 }

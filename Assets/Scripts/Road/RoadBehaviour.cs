@@ -3,7 +3,7 @@ using UnityEngine.Serialization;
 
 public class RoadBehaviour : BuildableObject
 {
-    [FormerlySerializedAs("_groundTransform")] [SerializeField] private Transform GroundTransform;
+    [SerializeField] private Transform GroundTransform;
      
     public float RoadLength { get; private set; }
     

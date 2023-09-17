@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class GameFactory : IData
 {
-    protected readonly List<MonoBehaviour> DefaultInstancesPrefabs;
+    protected readonly List<BuildableObject> DefaultInstancesPrefabs;
     private readonly Transform _container;
 
     protected GameFactory(Transform newContainer)
