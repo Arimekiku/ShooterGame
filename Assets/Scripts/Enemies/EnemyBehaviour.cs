@@ -14,6 +14,8 @@ public class EnemyBehaviour : MonoBehaviour
     {
         _currentHealth = health;
         _coinsOnDeath = reward;
+        
+        EnemyUI.UpdateHealth(_currentHealth);
     }
 
     public virtual void TakeDamage(int damage)

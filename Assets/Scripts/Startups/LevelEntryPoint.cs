@@ -66,7 +66,7 @@ public class LevelEntryPoint : MonoBehaviour
         {
             new EnemyFactory(LevelBehaviour.transform),
             new RoadFactory(LevelBehaviour.transform),
-            new PlayerBulletFactory(LevelBehaviour.transform),
+            new PlayerBulletFactory(LevelBehaviour.transform, _dataHandler.DataInfo.AttackDamage),
             new PlayerFactory(PlayerContainer, playerInput)
         };
 
@@ -79,8 +79,7 @@ public class LevelEntryPoint : MonoBehaviour
         _playerInstance = playerFactory.CreateInstance();
         
         PlayerBulletFactory bulletFactory = _factoryProvider.GetObjectOfType<PlayerBulletFactory>();
-        PlayerWeaponInfo weaponInfo = new(_dataHandler.DataInfo.AttackSpeed, _dataHandler.DataInfo.AttackDamage);
-        _playerInstance.Weapon.Init(bulletFactory, weaponInfo);
+        _playerInstance.Weapon.Init(bulletFactory, _dataHandler.DataInfo.AttackSpeed);
     }
     
     private void InitLevel()

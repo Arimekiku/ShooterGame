@@ -6,14 +6,14 @@ public class PlayerWeapon : MonoBehaviour
 {
     [SerializeField] private Transform AttackPoint;
     
+    private float _attackSpeed;
     private PlayerBulletFactory _bulletBulletFactory;
-    private PlayerWeaponInfo _weaponInfo;
     private Coroutine _attackRoutine;
     
-    public void Init(PlayerBulletFactory bulletBulletFactory, PlayerWeaponInfo weaponInfo)
+    public void Init(PlayerBulletFactory bulletBulletFactory, float attackSpeed)
     {
-        _weaponInfo = weaponInfo;
         _bulletBulletFactory = bulletBulletFactory;
+        _attackSpeed = attackSpeed;
     }
 
     public void StopAttack()
@@ -30,10 +30,9 @@ public class PlayerWeapon : MonoBehaviour
     {
         while (true)
         {
-            PlayerBullet newBulletInstance = _bulletBulletFactory.CreateInstance(AttackPoint.position);
-            newBulletInstance.SetDamage(_weaponInfo.AttackDamage);
+            _bulletBulletFactory.CreateInstance(AttackPoint.position);
 
-            float timeUntilNextAttack = 1 / _weaponInfo.AttackSpeed;
+            float timeUntilNextAttack = 1 / _attackSpeed;
             yield return new WaitForSeconds(timeUntilNextAttack);
         }
     }
