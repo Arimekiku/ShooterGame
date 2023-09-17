@@ -13,6 +13,9 @@ public class PlayerBulletFactory : GameFactory
     
     public PlayerBullet CreateInstance()
     {
+        PlayerBullet newBullet = CreateInstance<PlayerBullet>();
+        newBullet.Init();
+        
         return CreateInstance<PlayerBullet>();
     }
 }

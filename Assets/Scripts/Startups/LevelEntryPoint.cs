@@ -5,7 +5,7 @@ using UnityEngine;
 public class LevelEntryPoint : MonoBehaviour
 {
     [Header("Player Preferences")]
-    [SerializeField] private Transform PlayerSpawnPosition;
+    [SerializeField] private Transform PlayerContainer;
     
     [Header("Camera Preferences")]
     [SerializeField] private CinemachineVirtualCamera DefaultCamera;
@@ -18,8 +18,6 @@ public class LevelEntryPoint : MonoBehaviour
 
     [Header("UI")] 
     [SerializeField] private LevelUIHandler LevelUIHandler;
-
-    private const string PlayerPrefabPath = "Prefabs/Player/Player";
     
     private DataProvider<GameInput> _inputProvider;
     private DataProvider<GameFactory> _factoryProvider;
@@ -58,11 +56,14 @@ public class LevelEntryPoint : MonoBehaviour
 
     private void InitFactoryProvider()
     {
+        PlayerInput playerInput = _inputProvider.GetObjectOfType<PlayerInput>();
+        
         List<GameFactory> factories = new()
         {
             new EnemyFactory(LevelBehaviour.transform),
             new RoadFactory(LevelBehaviour.transform),
-            new PlayerBulletFactory(LevelBehaviour.transform)
+            new PlayerBulletFactory(LevelBehaviour.transform),
+            new PlayerFactory(PlayerContainer, playerInput)
         };
 
         _factoryProvider = new(factories);
@@ -70,11 +71,8 @@ public class LevelEntryPoint : MonoBehaviour
 
     private void InitPlayer()
     {
-        PlayerBehaviour playerPrefab = Resources.Load<PlayerBehaviour>(PlayerPrefabPath);
-        
-        PlayerInput playerInput = _inputProvider.GetObjectOfType<PlayerInput>();
-        _playerInstance = Instantiate(playerPrefab, PlayerSpawnPosition.position, Quaternion.identity);
-        _playerInstance.Init(playerInput);
+        PlayerFactory playerFactory = _factoryProvider.GetObjectOfType<PlayerFactory>();
+        _playerInstance = playerFactory.CreateInstance();
         
         PlayerBulletFactory bulletFactory = _factoryProvider.GetObjectOfType<PlayerBulletFactory>();
         PlayerWeaponInfo weaponInfo = new(_dataHandler.DataInfo.AttackSpeed, _dataHandler.DataInfo.AttackDamage);

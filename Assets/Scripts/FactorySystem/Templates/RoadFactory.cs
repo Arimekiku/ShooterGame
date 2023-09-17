@@ -16,11 +16,17 @@ public class RoadFactory : GameFactory
 
     public RoadBehaviour CreateDefaultInstance()
     {
-        return CreateInstance<RoadBehaviour>();
+        RoadBehaviour roadBehaviour = CreateInstance<RoadBehaviour>();
+        roadBehaviour.Init();
+        
+        return roadBehaviour;
     }
 
     public BossRoadBehaviour CreateBossInstance()
     {
-        return CreateInstance<BossRoadBehaviour>();
+        BossRoadBehaviour bossRoadBehaviour = CreateInstance<BossRoadBehaviour>();
+        bossRoadBehaviour.Init();
+        
+        return bossRoadBehaviour;
     }
 }

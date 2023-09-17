@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-public class EnemyBehaviour : BuildableObject
+public class EnemyBehaviour : MonoBehaviour
 {
     [SerializeField] protected EnemyUIHandler EnemyUI;
     
@@ -10,8 +10,6 @@ public class EnemyBehaviour : BuildableObject
     private int _currentHealth;
     private int _coinsOnDeath;
     
-    public override void Init() { }
-
     public void SetHealthAndReward(int health, int reward)
     {
         _currentHealth = health;

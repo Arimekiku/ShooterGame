@@ -2,7 +2,7 @@
 using UnityEngine;
 using UnityEngine.Serialization;
 
-public class PlayerBullet : BuildableObject
+public class PlayerBullet : MonoBehaviour
 {
     [SerializeField] private Vector3 Velocity;
 
@@ -12,7 +12,7 @@ public class PlayerBullet : BuildableObject
     private Rigidbody _body;
     private Vector3 _initialPosition;
 
-    public override void Init()
+    public void Init()
     {
         _body = GetComponent<Rigidbody>();
         _body.velocity = Velocity;

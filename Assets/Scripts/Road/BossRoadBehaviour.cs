@@ -7,13 +7,6 @@ public class BossRoadBehaviour : RoadBehaviour
 
     public BossBehaviour Boss => BossBehaviour;
 
-    public override void Init()
-    {
-        base.Init();
-        
-        BossBehaviour.Init();
-    }
-
     private void OnTriggerEnter(Collider other)
     {
         if (other.TryGetComponent(out PlayerBehaviour _))

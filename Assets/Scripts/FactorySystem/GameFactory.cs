@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class GameFactory : IData
 {
-    protected readonly List<BuildableObject> DefaultInstancesPrefabs;
+    protected readonly List<MonoBehaviour> DefaultInstancesPrefabs;
     private readonly Transform _container;
 
     protected GameFactory(Transform newContainer)
@@ -12,13 +12,12 @@ public class GameFactory : IData
         _container = newContainer;
     }
     
-    protected T CreateInstance<T>() where T : BuildableObject
+    protected T CreateInstance<T>() where T : MonoBehaviour
     {
         if (DefaultInstancesPrefabs.Find(p => p is T) is not T typePrefab)
             throw new("Type request not found");
 
         T newInstance = Object.Instantiate(typePrefab, _container);
-        newInstance.Init();
         
         return newInstance;
     }

@@ -7,8 +7,6 @@ public class BossBehaviour : EnemyBehaviour
 
     private bool _playerIsHere;
 
-    public override void Init() { }
-
     public override void TakeDamage(int damage)
     {
         if (!_playerIsHere)
