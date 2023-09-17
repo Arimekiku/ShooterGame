@@ -4,7 +4,10 @@ using UnityEngine.Serialization;
 public class BossBehaviour : EnemyBehaviour
 {
     [SerializeField] private Vector3 Velocity;
+    [SerializeField] private Animator Animator;
 
+    private BossAnimator _bossAnimator;
+    
     private bool _playerIsHere;
 
     public override void TakeDamage(int damage)
@@ -26,5 +29,8 @@ public class BossBehaviour : EnemyBehaviour
     public void EnableBoss()
     {
         _playerIsHere = true;
+
+        _bossAnimator = new(Animator);
+        _bossAnimator.TriggerWalk();
     }
 }

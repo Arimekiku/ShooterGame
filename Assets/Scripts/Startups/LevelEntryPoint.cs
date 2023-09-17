@@ -89,6 +89,7 @@ public class LevelEntryPoint : MonoBehaviour
         _levelInfo = levelBuilder.BuildLevelInfo();
         
         LevelBehaviour.Init(_levelInfo, _dataHandler);
+        LevelBehaviour.OnLevelEnd += _playerInstance.PlayerAnimator.TriggerDance;
     }
     
     private void InitCameraSystem()

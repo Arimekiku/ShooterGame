@@ -5,15 +5,19 @@ public class PlayerBehaviour : MonoBehaviour
 {
     [SerializeField] private PlayerInfo PlayerInfo;
     [SerializeField] private PlayerWeapon PlayerWeapon;
+    [SerializeField] private Animator Animator;
 
     private Rigidbody _body;
     
     public event Action OnDeath;
     public PlayerWeapon Weapon => PlayerWeapon;
+    public PlayerAnimator PlayerAnimator { get; private set; }
     
     public void Init(PlayerInput input)
     {
         _body = GetComponent<Rigidbody>();
+
+        PlayerAnimator = new(Animator);
 
         input.OnMovePressed += MoveSideways;
     }
@@ -40,15 +44,18 @@ public class PlayerBehaviour : MonoBehaviour
         OnDeath.Invoke();
     }
 
-
     public void DisableForwardMovement()
     {
         _body.velocity = Vector3.zero;
+        
+        PlayerAnimator.TriggerIdle();
     }
     
     private void EnableForwardMovement()
     {
         _body.velocity = PlayerInfo.Velocity;
+        
+        PlayerAnimator.TriggerRun();
     }
     
     private void MoveSideways(float offset)
