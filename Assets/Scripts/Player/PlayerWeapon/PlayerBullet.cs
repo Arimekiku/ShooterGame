@@ -12,16 +12,13 @@ public class PlayerBullet : MonoBehaviour
     private Rigidbody _body;
     private Vector3 _initialPosition;
 
-    public void Init()
+    public void Init(Vector3 position)
     {
         _body = GetComponent<Rigidbody>();
         _body.velocity = Velocity;
-    }
-
-    public void SetInitialPosition(Vector3 newPosition)
-    {
-        transform.position = newPosition;
-        _initialPosition = newPosition;
+        
+        transform.position = position;
+        _initialPosition = position;
     }
 
     public void SetDamage(int amount)

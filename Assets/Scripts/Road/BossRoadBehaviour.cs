@@ -9,7 +9,10 @@ public class BossRoadBehaviour : RoadBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.TryGetComponent(out PlayerBehaviour _))
+        if (other.TryGetComponent(out PlayerBehaviour player))
+        {
             BossBehaviour.EnableBoss();
+            player.DisableForwardMovement();
+        }
     }
 }

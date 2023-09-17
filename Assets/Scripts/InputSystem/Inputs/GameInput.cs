@@ -7,8 +7,6 @@
         InputSwitcher = inputSwitcher;
     }
 
-    public abstract void EnterInput();
-
     public abstract void Update();
 
     public virtual void FixedUpdate() { }

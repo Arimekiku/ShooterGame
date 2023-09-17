@@ -9,7 +9,6 @@ public class InputBehaviour : MonoBehaviour, IInputSwitcher
     public void Init(GameInput startInput, DataProvider<GameInput> inputProvider)
     {
         _inputProvider = inputProvider;
-        startInput.EnterInput();
         
         _updatableInput = startInput;
         _fixedUpdatableInput = startInput;
@@ -28,7 +27,6 @@ public class InputBehaviour : MonoBehaviour, IInputSwitcher
     public void SwitchInput<T>() where T : GameInput
     {
         T seekingInput = _inputProvider.GetObjectOfType<T>();
-        seekingInput.EnterInput();
         
         _updatableInput = seekingInput;
         _fixedUpdatableInput = seekingInput;

@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class LevelEntryPoint : MonoBehaviour
 {
+    [Header("Game Flow")]
+    [SerializeField] private GameFlowHandler GameFlow;
+    
     [Header("Player Preferences")]
     [SerializeField] private Transform PlayerContainer;
     
@@ -23,32 +26,33 @@ public class LevelEntryPoint : MonoBehaviour
     private DataProvider<GameFactory> _factoryProvider;
     private PlayerBehaviour _playerInstance;
     private SaveDataHandler _dataHandler;
+    private LevelInfo _levelInfo;
     
     private void Awake()
     {
-        SaveLoadedData();
-
+        FindDataHandler();
+        
         InitInputProvider();
         InitFactoryProvider();
         InitPlayer();
         InitLevel();
         InitCameraSystem();
+        InitGameFlow();
         InitInputBehaviour();
         InitUIHandler();
     }
 
-    private void SaveLoadedData()
+    private void FindDataHandler()
     {
         _dataHandler = FindObjectOfType<SaveDataHandler>();
-        _dataHandler.SaveGame();
     }
 
     private void InitInputProvider()
     {
         List<GameInput> inputs = new()
         {
-            new PlayerInput(InputBehaviour),
             new PauseInput(InputBehaviour),
+            new PlayerInput(InputBehaviour)
         };
 
         _inputProvider = new(inputs);
@@ -83,15 +87,36 @@ public class LevelEntryPoint : MonoBehaviour
     {
         LevelBuilder levelBuilder = new(_playerInstance, _factoryProvider, _dataHandler.DataInfo.RoadCount, _dataHandler.DataInfo.EnemyCount);
 
-        LevelInfo levelInfo = levelBuilder.BuildLevelInfo();
+        _levelInfo = levelBuilder.BuildLevelInfo();
         
-        LevelBehaviour.Init(levelInfo, _dataHandler);
+        LevelBehaviour.Init(_levelInfo, _dataHandler);
     }
     
     private void InitCameraSystem()
     {
         DefaultCamera.Follow = _playerInstance.transform;
         DefaultCamera.LookAt = _playerInstance.transform;
+    }
+    
+    private void InitGameFlow()
+    {
+        List<GameState> gameStates = new()
+        {
+            new LevelPerformState(_playerInstance),
+            new LevelEndState(_dataHandler, _levelInfo),
+            new LevelPauseState()
+        };
+
+        GameFlow.Init(gameStates, _dataHandler);
+        GameFlow.StateMachine.SwitchState<LevelPerformState>();
+        
+        PauseInput pauseInput = _inputProvider.GetObjectOfType<PauseInput>();
+        pauseInput.OnEscapePressed += GameFlow.StateMachine.SwitchState<LevelPerformState>;
+
+        PlayerInput playerInput = _inputProvider.GetObjectOfType<PlayerInput>();
+        playerInput.OnEscapePressed += GameFlow.StateMachine.SwitchState<LevelPauseState>;
+        
+        LevelBehaviour.OnLevelEnd += GameFlow.StateMachine.SwitchState<LevelEndState>;
     }
     
     private void InitInputBehaviour()

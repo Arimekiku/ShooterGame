@@ -7,11 +7,16 @@ public class Bootstrap : MonoBehaviour
 
     private void Awake()
     {
-        DontDestroyOnLoad(SaveGameHandler);
+        InitSaveSystem();
     }
-
+    
     private void Start()
     {
         SceneManager.LoadScene((int)SceneIndexes.MainMenu);
+    }
+
+    private void InitSaveSystem()
+    {
+        DontDestroyOnLoad(SaveGameHandler);
     }
 }

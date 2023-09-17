@@ -527,8 +527,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   TotalCoinsCount: {fileID: 66635335}
-  TotalAttackDamage: {fileID: 898767155}
-  TotalAttackSpeed: {fileID: 1240888368}
+  TotalAttackDamage: {fileID: 1413296612}
+  TotalAttackSpeed: {fileID: 1139598281}
   TotalRoadCount: {fileID: 324597357}
   TotalEnemyCount: {fileID: 54546500}
   TotalEnemyReward: {fileID: 1600305600}

@@ -7,8 +7,14 @@ public class RoadBehaviour : MonoBehaviour
      
     public float RoadLength { get; private set; }
     
-    public virtual void Init()
+    public void Init()
     {
         RoadLength = GroundTransform.localScale.z;
+    }
+    
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.TryGetComponent(out PlayerBehaviour player))
+            player.Death();
     }
 }

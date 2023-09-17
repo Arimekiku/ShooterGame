@@ -28,4 +28,10 @@ public class EnemyBehaviour : MonoBehaviour
             OnDeath.Invoke(_coinsOnDeath);
         }
     }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.TryGetComponent(out PlayerBehaviour player))
+            player.Death();
+    }
 }

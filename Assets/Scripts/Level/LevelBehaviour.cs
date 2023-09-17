@@ -55,13 +55,6 @@ public class LevelBehaviour : MonoBehaviour
     private void UpdateTotalCoinsCount(int amount)
     {
         UpdateLevelCoinsCount(amount);
-
-        _saveDataInfo.DataInfo.CurrentCoinsInGame += _levelInfo.EarnedCoins;
-        _saveDataInfo.DataInfo.TotalCoinsEarned += _levelInfo.EarnedCoins;
-        _saveDataInfo.DataInfo.TotalEnemyKilled += _levelInfo.Enemies.Length;
-        _saveDataInfo.DataInfo.TotalLevelPassed++;
-        
-        _saveDataInfo.SaveGame();
         
         OnLevelEnd.Invoke();
     }

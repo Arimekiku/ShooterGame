@@ -14,21 +14,23 @@ public class PlayerWeapon : MonoBehaviour
     {
         _weaponInfo = weaponInfo;
         _bulletBulletFactory = bulletBulletFactory;
-        
-        _attackRoutine = StartCoroutine(Attack());
     }
 
     public void StopAttack()
     {
         StopCoroutine(_attackRoutine);
     }
+    
+    public void StartAttack()
+    {
+        _attackRoutine = StartCoroutine(Attack());
+    }
 
     private IEnumerator Attack()
     {
         while (true)
         {
-            PlayerBullet newBulletInstance = _bulletBulletFactory.CreateInstance();
-            newBulletInstance.SetInitialPosition(AttackPoint.position);
+            PlayerBullet newBulletInstance = _bulletBulletFactory.CreateInstance(AttackPoint.position);
             newBulletInstance.SetDamage(_weaponInfo.AttackDamage);
 
             float timeUntilNextAttack = 1 / _weaponInfo.AttackSpeed;

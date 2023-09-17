@@ -8,11 +8,6 @@ public class PlayerInput : GameInput
 
     public PlayerInput(IInputSwitcher inputSwitcher) : base(inputSwitcher) { }
 
-    public override void EnterInput()
-    {
-        Time.timeScale = 1f;
-    }
-
     public override void Update()
     {
         if (Input.GetKeyDown(KeyCode.Escape))

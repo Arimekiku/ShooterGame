@@ -11,10 +11,10 @@ public class PlayerBulletFactory : GameFactory
         DefaultInstancesPrefabs.Add(bulletPrefab);
     }
     
-    public PlayerBullet CreateInstance()
+    public PlayerBullet CreateInstance(Vector3 bulletPosition)
     {
         PlayerBullet newBullet = CreateInstance<PlayerBullet>();
-        newBullet.Init();
+        newBullet.Init(bulletPosition);
         
         return CreateInstance<PlayerBullet>();
     }
